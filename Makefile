@@ -5,7 +5,7 @@ else
 	CXXFLAGS=-std=c++11 -march=native -O2
 endif
 
-LDFLAGS= -lsfml-graphics -lsfml-window -lsfml-system
+LDFLAGS= -lsfml-graphics -lsfml-window -lsfml-system -lsfgui 
 CXX= g++ -fPIC
 OBJ_DIR=objet/
 SRC_DIR=Source/
