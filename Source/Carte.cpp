@@ -1,4 +1,8 @@
-#include "Racine.hpp"
+#include "Carte.hpp"
+#include <cstdlib>
+#include <iostream>
+#include <cmath>
+#include "constantes.hpp"
  
 using namespace std;
 

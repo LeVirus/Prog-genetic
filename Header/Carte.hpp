@@ -1,6 +1,8 @@
 #ifndef CAR
 #define CAR
 
+#include <list>
+
 struct Ville{
   float x,y;
 };

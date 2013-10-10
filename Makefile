@@ -6,7 +6,7 @@ else
 endif
 
 LDFLAGS= -lsfml-graphics -lsfml-window -lsfml-system -lsfgui 
-CXX= g++ -fPIC
+CXX= g++
 OBJ_DIR=objet/
 SRC_DIR=Source/
 INCLUDE_DIR=Header/
@@ -21,8 +21,8 @@ EXE=exe
 
 all: $(EXE)
 
-$(EXE): $(OBJ)
-	$(CXX) $(CXXFLAGS) -I $(INCLUDE_DIR) -L $(LIB_DIR) $^ $(LDFLAGS) -o $@
+$(EXE): $(OBJ) main.cpp
+	$(CXX) $(CXXFLAGS) -I $(INCLUDE_DIR) $^ $(LDFLAGS) -o $@
 
 $(OBJ_DIR)%.o: $(SRC_DIR)%.cpp $(INCLUDE_DIR)%.hpp
 	$(CXX) $(CXXFLAGS) -I $(INCLUDE_DIR) -c $< -o $@

@@ -1,4 +1,6 @@
-#include "Racine.hpp"
+#include "Individu.hpp"
+#include <ctime>
+#include <iostream>
 
 using namespace std;
 

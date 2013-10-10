@@ -1,5 +1,5 @@
-#include "Racine.hpp"
-#include "Individu.cpp"//bg de merde
+#include "Population.hpp"
+#include "Individu.hpp"
 
 Population::Population(unsigned short nombreVille, unsigned short nombreIndividu){
 	nbrVille=nombreVille; 
