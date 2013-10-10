@@ -82,8 +82,8 @@ float Carte::distance(Ville a, Ville b){
   return sqrt( (a.x-b.x)*(a.x-b.x) + (a.y-b.y)*(a.y-b.y) );
 }
 
-float Carte::returnDistance(short villeA, short villB){
-  if( !tabDistanceVille ||  villeA>nbrVille-1  || villeA<0  ||  villB<0 || villeB> nbrVille-1 )
+float Carte::returnDistance(short villeA, short villeB){
+  if( !tabDistanceVille ||  villeA>nbrVille-1  || villeA<0  ||  villeB<0 || villeB> nbrVille-1 )
 	 return 0;
   return tabDistanceVille[villeA][villeB];
 }

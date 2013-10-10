@@ -11,6 +11,8 @@
 #include <cstdlib>
 #include <ctime>
 #include "constantes.hpp"
+#include "Individu.hpp"
+#include "Population.hpp"
 #include "Carte.hpp"
 
 class Racine{
@@ -24,7 +26,7 @@ class Racine{
   public:
 	 Racine(unsigned short nombreVille, unsigned short nombreIndividu);
 	 void lancerProg();
-	 initialiser();
+	 void initialiser();
 	 ~Racine();
 };
 
