@@ -1,16 +1,17 @@
-#ifndef IND
-#define IND
+#ifndef INDD
+#define INDD
 
 class Individu{
   private:
 	 float distanceTotale;
 	 unsigned short *parcour;
-	unsigned short tailleTab;
+	 short tailleTab;
   public:
-	 Individu(unsigned short taille);
+	 Individu();
+	 void setNbrVille(unsigned short taille);
 	 void afficherInd();
 	 void initInd();
-	 void reverseTab(unsigned short &a, unsigned short &b);
+	 void reverseCaseTab(unsigned short &a, unsigned short &b);
 	 ~Individu();
 };
 

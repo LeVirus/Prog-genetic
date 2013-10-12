@@ -1,6 +1,8 @@
 #ifndef POP
 #define POP
 
+class Individu;
+
 class Population{
   private:
 	 Individu *tabIndividu;

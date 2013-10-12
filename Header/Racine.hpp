@@ -1,17 +1,14 @@
 #ifndef RAC
 #define RAC
 
-#include <iostream>
+
 #include <SFML/Graphics.hpp>
-#include <list>
-#include <fstream>
-#include <string>
-#include <sstream>
-#include <cmath>
-#include <cstdlib>
-#include <ctime>
-#include "constantes.hpp"
-#include "Carte.hpp"
+//#include <fstream>
+//#include <string>
+//#include <sstream>
+
+class Population;
+class Carte;
 
 class Racine{
   private:
@@ -24,7 +21,7 @@ class Racine{
   public:
 	 Racine(unsigned short nombreVille, unsigned short nombreIndividu);
 	 void lancerProg();
-	 initialiser();
+	 void initialiser();
 	 ~Racine();
 };
 
