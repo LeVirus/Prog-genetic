@@ -24,8 +24,9 @@ void Racine::initialiser(){
 
 void Racine::lancerProg(){
 	unsigned short stock=0;
-	window.setFramerateLimit(20);	
-	
+	window.setFramerateLimit(20);
+	//sfg::Button::Ptr button = sfg::Button::Create( "Hello" );
+	//m_label = sfg::Label::Create( "Hello world!" );
 	//sf::Event event;
 	window.display();
 	while ( window.isOpen() ){

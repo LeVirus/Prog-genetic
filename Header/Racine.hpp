@@ -3,9 +3,8 @@
 
 
 #include <SFML/Graphics.hpp>
-//#include <fstream>
-//#include <string>
-//#include <sstream>
+#include <SFGUI/SFGUI.hpp>
+
 
 class Population;
 class Carte;
@@ -15,6 +14,7 @@ class Racine{
 	 sf::Texture texture;
 	 short largeurFenetre, longueurFenetre, frame, nbreVille, nbreIndividu;
 	 sf::RenderWindow window;
+	 sfg::SFGUI sfgui;
 	 Population *pop;
 	 Carte *carte;
 	 
