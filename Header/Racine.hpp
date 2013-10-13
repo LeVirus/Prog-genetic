@@ -4,19 +4,18 @@
 
 #include <SFML/Graphics.hpp>
 #include <SFGUI/SFGUI.hpp>
-
+#include "Fenetre.hpp"
 
 class Population;
 class Carte;
 
 class Racine{
   private:
-	 sf::Texture texture;
-	 short largeurFenetre, longueurFenetre, frame, nbreVille, nbreIndividu;
-	 sf::RenderWindow window;
-	 sfg::SFGUI sfgui;
+	 //sf::Texture texture;
+	 short frame, nbreVille, nbreIndividu;
 	 Population *pop;
 	 Carte *carte;
+	 Fenetre fenetre;
 	 
   public:
 	 Racine(unsigned short nombreVille, unsigned short nombreIndividu);
