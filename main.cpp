@@ -5,7 +5,7 @@ using namespace std;
 
 int main(){
   srand(time(NULL));
-  Racine a(5, 50);
+  Racine a;
   a.lancerProg();
   return 0;
 }

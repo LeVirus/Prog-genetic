@@ -28,6 +28,12 @@ Fenetre::Fenetre(){
 	 combModCroismnt = sfg::ComboBox::Create();
 	 combModCroismnt->AppendItem( "opA" );
 	 combModCroismnt->PrependItem( "opB" );
+	 //valeur par defaut
+	 nbrVille=4;
+	 nbrIndividu=10;
+	 opSelect=0;
+	 opReplace=0;
+	 modeCroisement=0;
 }
 
 void Fenetre::gestionEvent(){
@@ -56,13 +62,13 @@ void Fenetre::gestionEvent(){
 	 
 	 
 	 
-	 spinNombreVille->GetSignal( sfg::SpinButton::OnValueChanged ).Connect( &Fenetre::testA, this );
-	 spinNombreInd->GetSignal( sfg::SpinButton::OnValueChanged ).Connect( &Fenetre::testA, this );
-	 combOpSelect->GetSignal( sfg::ComboBox::OnSelect ).Connect( &Fenetre::testCombo, this );
-	 combOpReplace->GetSignal( sfg::ComboBox::OnSelect ).Connect( &Fenetre::testCombo, this );
-	 combModCroismnt->GetSignal( sfg::ComboBox::OnSelect ).Connect( &Fenetre::testCombo, this );
-	 buttonReset->GetSignal( sfg::Widget::OnLeftClick ).Connect( &Fenetre::test, this );
-	 buttonLaunch->GetSignal( sfg::Widget::OnLeftClick ).Connect( &Fenetre::test, this );
+	 spinNombreVille->GetSignal( sfg::SpinButton::OnValueChanged ).Connect( &Fenetre::setNombreVille, this );
+	 spinNombreInd->GetSignal( sfg::SpinButton::OnValueChanged ).Connect( &Fenetre::setNombreInd, this );
+	 combOpSelect->GetSignal( sfg::ComboBox::OnSelect ).Connect( &Fenetre::chooseSelectionOperator, this );
+	 combOpReplace->GetSignal( sfg::ComboBox::OnSelect ).Connect( &Fenetre::chooseReplaceOperator, this );
+	 combModCroismnt->GetSignal( sfg::ComboBox::OnSelect ).Connect( &Fenetre::chooseModeCroisement, this );
+	 buttonReset->GetSignal( sfg::Widget::OnLeftClick ).Connect( &Fenetre::signalReset, this );
+	 buttonLaunch->GetSignal( sfg::Widget::OnLeftClick ).Connect( &Fenetre::signalLaunch, this );
 
 	 // Add the SpinButton to the box.
 	 box->Pack( labelA );
@@ -87,7 +93,7 @@ void Fenetre::gestionEvent(){
 	 
 	 windowSF.resetGLStates();
 	 
-	 while ( windowSF.isOpen() ){
+	while ( windowSF.isOpen() ){
 		//sf::Clock temps;
 		//window.pollEvent(event);
 		if (/* event.type == sf::Event::Closed  ||*/  sf::Keyboard::isKeyPressed(sf::Keyboard::Escape) ){
@@ -102,22 +108,42 @@ void Fenetre::gestionEvent(){
 		//windowSF.clear(sf::Color::Black);
 		sfgui.Display( windowSF );
 		windowSF.display();
-	 }
+	}
 }
 
-void Fenetre::testA() {
-   cout<< spinNombreVille->GetValue ()<<"   Ville   "<<endl;
-	cout<< spinNombreInd->GetValue ()<<"   Individu   "<<endl;
+void Fenetre::setNombreVille() {
+	 nbrVille=spinNombreVille->GetValue ();
+	 cout<< nbrVille<<"   Ville"<<endl;
 }
 
-void Fenetre::test(){
-  cout<<"bonjour"<<endl;
+void Fenetre::setNombreInd(){
+	 nbrIndividu=spinNombreInd->GetValue ();
+	 cout<<nbrIndividu<<"   Individu"<<endl;
 }
 
-void Fenetre::testCombo(){
-  cout<<"fff"<<endl;
+void Fenetre::chooseSelectionOperator(){
+	 opSelect=combOpSelect->GetSelectedItem();
+	 cout<<opSelect<<"   operateur de selection"<<endl;
+}
+
+void Fenetre::chooseReplaceOperator(){
+	 opReplace=combOpReplace->GetSelectedItem();
+	 cout<<opReplace<<"   operateur de remplacement"<<endl;
+}
+
+void Fenetre::chooseModeCroisement(){
+	 modeCroisement=combModCroismnt->GetSelectedItem();
+	 cout<<modeCroisement<<"   Mode Croisement"<<endl;
+}
+
+void Fenetre::signalReset(){
+	 cout<<"reset"<<endl;
+}
+
+void Fenetre::signalLaunch(){
+	 cout<<"launch"<<endl;
 }
 
 Fenetre::~Fenetre(){
-  
+	 
 }

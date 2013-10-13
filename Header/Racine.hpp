@@ -18,7 +18,7 @@ class Racine{
 	 Fenetre fenetre;
 	 
   public:
-	 Racine(unsigned short nombreVille, unsigned short nombreIndividu);
+	 Racine();
 	 void lancerProg();
 	 void initialiser();
 	 ~Racine();

@@ -6,18 +6,17 @@
 
 using namespace std;
 
-Racine::Racine(unsigned short nombreVille, unsigned short nombreIndividu){
-  nbreVille=nombreVille; 
-  nbreIndividu=nombreIndividu;
-  //if(  !texture.loadFromFile( "Images/textureA.png" )  )cout<<"fail load im"<<endl;
-  frame=0;
-  pop=new Population(nombreVille, nbreIndividu);
+Racine::Racine(){
   
-  carte=new Carte(nombreVille);
+	 //if(  !texture.loadFromFile( "Images/textureA.png" )  )cout<<"fail load im"<<endl;
 }
 
 void Racine::initialiser(){
-	
+	 //nbreVille=nombreVille; 
+	 //nbreIndividu=nombreIndividu;
+	 //pop=new Population(nombreVille, nbreIndividu);
+	 
+	 //carte=new Carte(nombreVille);
 }
 
 void Racine::lancerProg(){

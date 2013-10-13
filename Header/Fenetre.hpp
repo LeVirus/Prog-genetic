@@ -3,6 +3,7 @@
 
 #include <SFML/Graphics.hpp>
 #include <SFGUI/SFGUI.hpp>
+#include <string>
 
 class Fenetre{
   private:
@@ -10,12 +11,18 @@ class Fenetre{
 	 sfg::SFGUI sfgui;
 	 sfg::SpinButton::Ptr spinNombreVille, spinNombreInd;
 	 sfg::ComboBox::Ptr combOpSelect, combOpReplace, combModCroismnt;
+	 short nbrVille, nbrIndividu;
+	 string opSelect, opReplace, modeCroisement;
   public:
 	 Fenetre();
 	 void gestionEvent();
-	 void test();
-	 void testA();
-	 void testCombo();
+	 void setNombreVille();
+	 void setNombreInd();
+	 void chooseSelectionOperator();
+	 void chooseReplaceOperator();
+	 void chooseModeCroisement();
+	 void signalReset();
+	 void signalLaunch();
 	 ~Fenetre();
 };
 
