@@ -8,28 +8,25 @@ Individu::Individu(){
 	tailleTab=0;
 }
 
-void Individu::setNbrVille(unsigned short taille){
-  if(tailleTab!=0)return;
-  tailleTab=taille;
-}
+void Individu::initInd(unsigned short taille){
+	 if(tailleTab!=0)return;
+	 tailleTab=taille;
+	 unsigned short tmpTaille=tailleTab;
+	 //unsigned short tabVille[tailleTab];
+	 unsigned short *tabTmp=new unsigned short[tailleTab];
+	 parcour=new unsigned short[tailleTab];
+	 for(short g=0;g<tailleTab;++g){
+		tabTmp[g]=g;
+	 }
 
-void Individu::initInd(){
-	unsigned short tmpTaille=tailleTab;
-	//unsigned short tabVille[tailleTab];
-	unsigned short *tabTmp=new unsigned short[tailleTab];
-	parcour=new unsigned short[tailleTab];
-  for(short g=0;g<tailleTab;++g){
-	 tabTmp[g]=g;
-  }
-
-	
-	for(unsigned short i=0;i<tailleTab;++i){
+	 
+	 for(unsigned short i=0;i<tailleTab;++i){
 		unsigned short stock=rand()%tmpTaille;
 		parcour[i]=tabTmp[stock];
 		reverseCaseTab(tabTmp[stock], tabTmp[tmpTaille-1]);
 		tmpTaille--;
-	}
-  delete tabTmp;
+	 }
+	 delete tabTmp;
 }
 
 void Individu::reverseCaseTab(unsigned short &a, unsigned short &b){
@@ -41,8 +38,9 @@ void Individu::reverseCaseTab(unsigned short &a, unsigned short &b){
 
 void Individu::afficherInd(){
 	for(unsigned short i=0;i<tailleTab;i++){
-	 cout<<parcour[i]<<"   "<<endl;
+	 cout<<parcour[i]<<"   ";
 	}
+	cout<<endl;
 }
 
 Individu::~Individu(){

@@ -4,8 +4,9 @@
 Population::Population(unsigned short nombreVille, unsigned short nombreIndividu){
 	nbrVille=nombreVille; 
 	nbrIndividu=nombreIndividu;
-	tabIndividu=new Individu[nombreIndividu];
+	tabIndividu=new Individu[nbrIndividu];
 	for(unsigned short i=0;i<nbrIndividu;i++){
+		tabIndividu[i].initInd(nbrVille);
 	 	tabIndividu[i].afficherInd();
 	}
 	

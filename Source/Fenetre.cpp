@@ -4,7 +4,10 @@
 
 using namespace std;
 
-Fenetre::Fenetre(){
+
+Fenetre::Fenetre(Racine *a){
+	 if(!a)return;
+	 ptrRacine=a;
 	 windowSF.create(sf::VideoMode(LARGEUR_FENETRE, LONGUEUR_FENETRE), "shoot", sf::Style::Default);
 	 // MIN MAX PAS
 	 spinNombreVille = sfg::SpinButton::Create( 3.f, 20.f, 1.f );
@@ -28,12 +31,17 @@ Fenetre::Fenetre(){
 	 combModCroismnt = sfg::ComboBox::Create();
 	 combModCroismnt->AppendItem( "opA" );
 	 combModCroismnt->PrependItem( "opB" );
+	 
+	 combModExec = sfg::ComboBox::Create();
+	 combModExec->AppendItem( "opA" );
+	 combModExec->PrependItem( "opB" );
 	 //valeur par defaut
-	 nbrVille=4;
-	 nbrIndividu=10;
-	 opSelect=0;
-	 opReplace=0;
-	 modeCroisement=0;
+	 donnees.nbrVille=4;
+	 donnees.nbrIndividu=10;
+	 donnees.opSelect=0;
+	 donnees.opReplace=0;
+	 donnees.modeCroisement=0;
+	 donnees.modeExec=0;
 }
 
 void Fenetre::gestionEvent(){
@@ -51,7 +59,7 @@ void Fenetre::gestionEvent(){
 	 labelC = sfg::Label::Create( "Operateur de selection?" );
 	 labelD = sfg::Label::Create( "Operateur de remplacement?" );
 	 labelE = sfg::Label::Create( "mode de croisement?" );
-	 labelF = sfg::Label::Create( "iteration?" );
+	 labelF = sfg::Label::Create( "mode execution?" );
 	 
 	 buttonReset = sfg::Button::Create( "RESET" );
 	 buttonLaunch = sfg::Button::Create( "LAUNCH" );
@@ -67,6 +75,7 @@ void Fenetre::gestionEvent(){
 	 combOpSelect->GetSignal( sfg::ComboBox::OnSelect ).Connect( &Fenetre::chooseSelectionOperator, this );
 	 combOpReplace->GetSignal( sfg::ComboBox::OnSelect ).Connect( &Fenetre::chooseReplaceOperator, this );
 	 combModCroismnt->GetSignal( sfg::ComboBox::OnSelect ).Connect( &Fenetre::chooseModeCroisement, this );
+	 combModExec->GetSignal( sfg::ComboBox::OnSelect ).Connect( &Fenetre::chooseModeExecution, this );
 	 buttonReset->GetSignal( sfg::Widget::OnLeftClick ).Connect( &Fenetre::signalReset, this );
 	 buttonLaunch->GetSignal( sfg::Widget::OnLeftClick ).Connect( &Fenetre::signalLaunch, this );
 
@@ -81,6 +90,8 @@ void Fenetre::gestionEvent(){
 	 box->Pack( combOpReplace );
 	 box->Pack( labelE );
 	 box->Pack( combModCroismnt );
+	 box->Pack( labelF );
+	 box->Pack( combModExec );
 	 box->Pack( buttonReset, false );
 	 box->Pack( buttonLaunch, false );
 	 
@@ -112,28 +123,33 @@ void Fenetre::gestionEvent(){
 }
 
 void Fenetre::setNombreVille() {
-	 nbrVille=spinNombreVille->GetValue ();
-	 cout<< nbrVille<<"   Ville"<<endl;
+	 donnees.nbrVille=spinNombreVille->GetValue ();
+	 cout<< donnees.nbrVille<<"   Ville"<<endl;
 }
 
 void Fenetre::setNombreInd(){
-	 nbrIndividu=spinNombreInd->GetValue ();
-	 cout<<nbrIndividu<<"   Individu"<<endl;
+	 donnees.nbrIndividu=spinNombreInd->GetValue ();
+	 cout<<donnees.nbrIndividu<<"   Individu"<<endl;
 }
 
 void Fenetre::chooseSelectionOperator(){
-	 opSelect=combOpSelect->GetSelectedItem();
-	 cout<<opSelect<<"   operateur de selection"<<endl;
+	 donnees.opSelect=combOpSelect->GetSelectedItem();
+	 cout<<donnees.opSelect<<"   operateur de selection"<<endl;
 }
 
 void Fenetre::chooseReplaceOperator(){
-	 opReplace=combOpReplace->GetSelectedItem();
-	 cout<<opReplace<<"   operateur de remplacement"<<endl;
+	 donnees.opReplace=combOpReplace->GetSelectedItem();
+	 cout<<donnees.opReplace<<"   operateur de remplacement"<<endl;
 }
 
 void Fenetre::chooseModeCroisement(){
-	 modeCroisement=combModCroismnt->GetSelectedItem();
-	 cout<<modeCroisement<<"   Mode Croisement"<<endl;
+	 donnees.modeCroisement=combModCroismnt->GetSelectedItem();
+	 cout<<donnees.modeCroisement<<"   Mode Croisement"<<endl;
+}
+
+void Fenetre::chooseModeExecution(){
+	 donnees.modeExec=combModExec->GetSelectedItem();
+	 cout<<donnees.modeExec<<"   Mode execution"<<endl;
 }
 
 void Fenetre::signalReset(){
@@ -142,6 +158,7 @@ void Fenetre::signalReset(){
 
 void Fenetre::signalLaunch(){
 	 cout<<"launch"<<endl;
+	 ptrRacine->launch(&donnees);
 }
 
 Fenetre::~Fenetre(){

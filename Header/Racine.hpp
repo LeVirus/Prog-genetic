@@ -4,10 +4,11 @@
 
 #include <SFML/Graphics.hpp>
 #include <SFGUI/SFGUI.hpp>
-#include "Fenetre.hpp"
 
 class Population;
 class Carte;
+class Fenetre;
+struct Donnees;
 
 class Racine{
   private:
@@ -15,11 +16,13 @@ class Racine{
 	 short frame, nbreVille, nbreIndividu;
 	 Population *pop;
 	 Carte *carte;
-	 Fenetre fenetre;
+	 Fenetre *fenetre;
+	 Donnees *stockDonnees;
 	 
   public:
 	 Racine();
 	 void lancerProg();
+	 void launch(Donnees *d);
 	 void initialiser();
 	 ~Racine();
 };

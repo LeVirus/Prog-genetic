@@ -8,9 +8,8 @@ class Individu{
 	 short tailleTab;
   public:
 	 Individu();
-	 void setNbrVille(unsigned short taille);
 	 void afficherInd();
-	 void initInd();
+	 void initInd(unsigned short taille);
 	 void reverseCaseTab(unsigned short &a, unsigned short &b);
 	 ~Individu();
 };
