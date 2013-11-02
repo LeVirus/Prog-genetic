@@ -27,6 +27,7 @@ void Racine::launch(Donnees *d){
 	 carte=new Carte(stockDonnees->nbrVille);
 	 carte->affichage();
 	 pop=new Population(stockDonnees->nbrVille, stockDonnees->nbrIndividu);
+	 pop->afficherPop();
 	 
 }
 

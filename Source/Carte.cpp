@@ -68,7 +68,7 @@ for(itVille=chaineVille.begin();itVille!=chaineVille.end();itVille++)cout<<(*itV
 }*/
 
 void Carte::affichage(){
-  cout<<endl<<"AFFICHAGE"<<endl;
+  cout<<endl<<"AFFICHAGE CARTE"<<endl;
   for(short j=0;j<nbrVille;j++){
 	 cout<<j<<"   "<<tabVille[j].x<<"   "<<tabVille[j].y<<endl;
   }
@@ -79,7 +79,7 @@ void Carte::affichage(){
 	 if( tabDistanceVille[0][i]<10 )cout<<"   ";
 	 else cout<<"  ";
   }
-  cout<<endl<<"FIN AFFICHAGE"<<endl;
+  cout<<endl<<"FIN AFFICHAGE CARTE"<<endl;
 }
 
 float Carte::distance(Ville a, Ville b){

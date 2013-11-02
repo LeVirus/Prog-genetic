@@ -11,29 +11,24 @@ Individu::Individu(){
 void Individu::initInd(unsigned short taille){
 	 if(tailleTab!=0)return;
 	 tailleTab=taille;
-	 unsigned short tmpTaille=tailleTab;
-	 //unsigned short tabVille[tailleTab];
-	 unsigned short *tabTmp=new unsigned short[tailleTab];
 	 parcour=new unsigned short[tailleTab];
 	 for(short g=0;g<tailleTab;++g){
-		tabTmp[g]=g;
+		parcour[g]=g;
 	 }
 
 	 
-	 for(unsigned short i=0;i<tailleTab;++i){
-		unsigned short stock=rand()%tmpTaille;
-		parcour[i]=tabTmp[stock];
-		reverseCaseTab(tabTmp[stock], tabTmp[tmpTaille-1]);
-		tmpTaille--;
+	 for(unsigned short i=tailleTab;i>0;--i){
+		unsigned short stock=rand()%i;
+		reverseCaseTab(parcour[stock], parcour[i-1]);
+		afficherInd();
 	 }
-	 delete tabTmp;
 }
 
 void Individu::reverseCaseTab(unsigned short &a, unsigned short &b){
 	if(a==b)return;
 	unsigned short tmp=a;
-	b=a;
-	a=tmp;
+	a=b;
+	b=tmp;
 }
 
 void Individu::afficherInd(){
@@ -44,6 +39,7 @@ void Individu::afficherInd(){
 }
 
 Individu::~Individu(){
-	delete parcour;
+	 cout<<"qsdfg"<<endl;
+	if(parcour)delete parcour;
 }
 

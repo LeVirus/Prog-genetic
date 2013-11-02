@@ -13,12 +13,13 @@ Population::Population(unsigned short nombreVille, unsigned short nombreIndividu
 }
 
 void Population::afficherPop(){
+	if(!tabIndividu)return;
 	for(unsigned short i=0;i<nbrIndividu;i++){
 	 	tabIndividu[i].afficherInd();
 	}
 }
 
 Population::~Population(){
-	delete tabIndividu;
+	if(tabIndividu)delete tabIndividu;
 }
 
