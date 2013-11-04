@@ -1,7 +1,12 @@
 #include "Racine.hpp"
-#include "Carte.hpp"
 
 using namespace std;
+
+class Carte;
+class Population;
+
+Carte *carteG;
+Population *popG;
 
 int main(){
   srand(time(NULL));
