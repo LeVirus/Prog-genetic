@@ -9,6 +9,7 @@ class Individu{
   public:
 	 Individu();
 	 void calculFitness();
+	 float getFitness();
 	 void afficherInd();
 	 void initInd(unsigned short taille);
 	 void reverseCaseTab(unsigned short &a, unsigned short &b);

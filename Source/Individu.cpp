@@ -36,6 +36,10 @@ void Individu::reverseCaseTab(unsigned short &a, unsigned short &b){
 	b=tmp;
 }
 
+float Individu::getFitness(){
+	return fitNess;
+}
+
 void Individu::calculFitness(){
   short ii;
 	if(!parcour)return;

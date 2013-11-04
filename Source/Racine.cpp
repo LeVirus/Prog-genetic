@@ -8,9 +8,11 @@
 using namespace std;
 
 extern Carte *carteG;
+extern Population *populationG;
 
 Racine::Racine(){
   pop=NULL;
+  carte=NULL;
 	 stockDonnees=NULL;
 	 fenetre=new Fenetre(this);
 	 //if(  !texture.loadFromFile( "Images/textureA.png" )  )cout<<"fail load im"<<endl;
@@ -31,6 +33,7 @@ void Racine::launch(Donnees *d){
 	 carteG=carte;
 	 //carte->affichage();
 	 pop=new Population(stockDonnees->nbrVille, stockDonnees->nbrIndividu);
+populationG=pop;
 	 pop->afficherPop();
 	 
 }
