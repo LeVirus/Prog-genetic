@@ -10,12 +10,14 @@ class Carte;
 class Fenetre;
 struct Donnees;
 
+//Carte *carteG;
+
 class Racine{
   private:
 	 //sf::Texture texture;
+	 Carte *carte;
 	 short frame, nbreVille, nbreIndividu;
 	 Population *pop;
-	 Carte *carte;
 	 Fenetre *fenetre;
 	 Donnees *stockDonnees;
 	 

@@ -12,8 +12,8 @@ class Carte{
 	 unsigned short nbrVille;
 	 float **tabDistanceVille;
 	 Ville *tabVille;
-	 std::list<short> chaineVille;
-	 std::list<short>::iterator itVille;
+	 //std::list<short> chaineVille;
+	 //std::list<short>::iterator itVille;
   public:
 	 Carte(short nombre);
 	 void initVille();
