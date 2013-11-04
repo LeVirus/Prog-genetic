@@ -2,7 +2,7 @@
 #include "Carte.hpp"
 
 using namespace std;
-
+Carte *carteG;
 int main(){
   srand(time(NULL));
   Racine a;
