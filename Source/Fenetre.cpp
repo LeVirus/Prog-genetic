@@ -10,12 +10,12 @@ Fenetre::Fenetre(Racine *a){
 	 ptrRacine=a;
 	 windowSF.create(sf::VideoMode(LARGEUR_FENETRE, LONGUEUR_FENETRE), "shoot", sf::Style::Default);
 	 // MIN MAX PAS
-	 spinNombreVille = sfg::SpinButton::Create( 3.f, 20.f, 1.f );
+	 spinNombreVille = sfg::SpinButton::Create( 5.f, 20.f, 1.f );
 	 // taille du spinbox
 	 spinNombreVille->SetRequisition( sf::Vector2f( 80.f, 0.f ) );
 	 // Set the number of digits to display after the decimal point.
 	 //spinNombreVille->SetDigits( 0 );
-	 spinNombreInd = sfg::SpinButton::Create( 10.f, 500.f, 10.f );
+	 spinNombreInd = sfg::SpinButton::Create( 20.f, 500.f, 10.f );
 	 // taille du spinbox
 	 spinNombreInd->SetRequisition( sf::Vector2f( 80.f, 0.f ) );
 	 // Set the number of digits to display after the decimal point.
@@ -123,8 +123,11 @@ void Fenetre::gestionEvent(){
 }
 
 void Fenetre::setNombreVille() {
+  
 	 donnees.nbrVille=spinNombreVille->GetValue ();
 	 cout<< donnees.nbrVille<<"   Ville"<<endl;
+	 spinNombreInd->SetRange( 10.f , nombreMaxIndividus( donnees.nbrVille ) );
+	 //modifier tranche individu
 }
 
 void Fenetre::setNombreInd(){
@@ -161,6 +164,12 @@ void Fenetre::signalLaunch(){
 	 ptrRacine->launch(&donnees);
 }
 
+short Fenetre::nombreMaxIndividus(short nombreVille){
+  for(short i=nombreVille-1;i>3;--i)
+	 nombreVille*=i;
+  return nombreVille;
+}
+
 Fenetre::~Fenetre(){
-	 
+
 }

@@ -1,5 +1,8 @@
 #include "Population.hpp"
 #include "Individu.hpp"
+#include <iostream>
+
+using namespace std;
 
 Population::Population(unsigned short nombreVille, unsigned short nombreIndividu){
 	nbrVille=nombreVille; 
@@ -7,7 +10,7 @@ Population::Population(unsigned short nombreVille, unsigned short nombreIndividu
 	tabIndividu=new Individu[nbrIndividu];
 	for(unsigned short i=0;i<nbrIndividu;i++){
 		tabIndividu[i].initInd(nbrVille);
-	 	tabIndividu[i].afficherInd();
+	 	//tabIndividu[i].afficherInd();
 	}
 	
 }
@@ -20,6 +23,6 @@ void Population::afficherPop(){
 }
 
 Population::~Population(){
-	if(tabIndividu)delete tabIndividu;
+	if(tabIndividu)delete [] tabIndividu;
 }
 

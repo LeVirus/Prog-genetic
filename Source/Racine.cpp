@@ -7,7 +7,10 @@
 
 using namespace std;
 
+extern Carte *carteG;
+
 Racine::Racine(){
+  pop=NULL;
 	 stockDonnees=NULL;
 	 fenetre=new Fenetre(this);
 	 //if(  !texture.loadFromFile( "Images/textureA.png" )  )cout<<"fail load im"<<endl;
@@ -25,7 +28,8 @@ void Racine::launch(Donnees *d){
 	 if(stockDonnees)return;
 	 stockDonnees=d;
 	 carte=new Carte(stockDonnees->nbrVille);
-	 carte->affichage();
+	 carteG=carte;
+	 //carte->affichage();
 	 pop=new Population(stockDonnees->nbrVille, stockDonnees->nbrIndividu);
 	 pop->afficherPop();
 	 
@@ -39,4 +43,5 @@ Racine::~Racine(){
 	 if(fenetre)delete fenetre;
 	 if(carte)delete carte;
 	 if(pop)delete pop;
+
 }
