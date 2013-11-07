@@ -16,7 +16,7 @@ Population::Population(unsigned short nombreVille, unsigned short nombreIndividu
 }
 
 
-std::vector<Individu> Population::vectorInd(){
+const std::vector<Individu> &Population::getVectorInd(){
 	return tabIndividu;
 }
 
@@ -26,6 +26,5 @@ void Population::afficherPop(){
 	}
 }
 
-Population::~Population(){
-}
+Population::~Population(){}
 

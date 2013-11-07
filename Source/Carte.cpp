@@ -93,7 +93,7 @@ float Carte::returnDistance(short villeA, short villeB){
 }
 
 Carte::~Carte(){
-  delete [] tabDistanceVille[0];
+  delete tabDistanceVille[0];
   delete tabDistanceVille;
   delete tabVille;
 

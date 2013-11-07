@@ -2,6 +2,7 @@
 #include "Carte.hpp"
 #include <ctime>
 #include <iostream>
+#include <algorithm>
 
 using namespace std;
 
@@ -21,11 +22,7 @@ void Individu::initInd(unsigned short taille){
 		parcour[g]=g;
 	 }
 
-	 
-	 for(unsigned short i=tailleTab;i>0;--i){
-		unsigned short stock=rand()%i;
-		reverseCaseTab(parcour[stock], parcour[i-1]);
-	 }
+	 std::random_shuffle ( &parcour[0], &parcour[tailleTab] );//melanger tableau
 	 calculFitness();
 }
 
@@ -37,7 +34,7 @@ void Individu::reverseCaseTab(unsigned short &a, unsigned short &b){
 }
 
 float Individu::getFitness(){
-	return fitNess;
+	return fitness;
 }
 
 void Individu::calculFitness(){
@@ -56,7 +53,7 @@ void Individu::afficherInd(){
 	 cout<<parcour[i]<<"   ";
 	}
 	cout<<endl;
-	cout<<"fitness::"<<fitness<<endl<<"distanceTotale::"<<distanceTotale<<endl;
+	cout<<"fitness::"<<fitness<<endl<<"distanceTotale::"<<distanceTotale<<endl<<endl;
 }
 
 Individu::~Individu(){

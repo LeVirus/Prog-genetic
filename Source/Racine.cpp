@@ -3,17 +3,19 @@
 #include "Carte.hpp"
 #include "Population.hpp"
 #include "Fenetre.hpp"
+#include "Traitement.hpp"
 #include <iostream>
 
 using namespace std;
 
 extern Carte *carteG;
-extern Population *populationG;
+extern Population *popG;
 
 Racine::Racine(){
-  pop=NULL;
-  carte=NULL;
+	 pop=NULL;
+	 carte=NULL;
 	 stockDonnees=NULL;
+	 classeAlgo=new Traitement;
 	 fenetre=new Fenetre(this);
 	 //if(  !texture.loadFromFile( "Images/textureA.png" )  )cout<<"fail load im"<<endl;
 }
@@ -33,9 +35,13 @@ void Racine::launch(Donnees *d){
 	 carteG=carte;
 	 //carte->affichage();
 	 pop=new Population(stockDonnees->nbrVille, stockDonnees->nbrIndividu);
-populationG=pop;
-	 pop->afficherPop();
-	 
+	 popG=pop;
+	 //pop->afficherPop();
+	 classeAlgo->init();
+	 //classeAlgo->roulette(0);
+	 classeAlgo->roulette(1);
+	 //classeAlgo->tournoi(5, 10);
+	 classeAlgo->elitisme(5);
 }
 
 void Racine::lancerProg(){
@@ -45,6 +51,7 @@ void Racine::lancerProg(){
 Racine::~Racine(){
 	 if(fenetre)delete fenetre;
 	 if(carte)delete carte;
-	 if(pop)delete pop;
+	 //if(pop)delete pop;BUUUUUUUUUUUUUUUUUUUGGGGGGGGGGGGGGGGGGGGGGGGGG
+	 if(classeAlgo)delete classeAlgo;
 
 }
