@@ -3,7 +3,7 @@
 #include "Carte.hpp"
 #include "Population.hpp"
 #include "Fenetre.hpp"
-#include "Traitement.hpp"
+#include "OpSelect.hpp"
 #include <iostream>
 
 using namespace std;
@@ -15,7 +15,7 @@ Racine::Racine(){
 	 pop=NULL;
 	 carte=NULL;
 	 stockDonnees=NULL;
-	 classeAlgo=new Traitement;
+	 classeAlgo=new OpSelect;
 	 fenetre=new Fenetre(this);
 	 //if(  !texture.loadFromFile( "Images/textureA.png" )  )cout<<"fail load im"<<endl;
 }

@@ -9,21 +9,26 @@ using namespace std;
 extern Carte *carteG;
 
 Individu::Individu(){
-	tailleTab=0;
+
+}
+
+Individu::Individu(unsigned short taille){
+	initInd(taille);
+}
+
+Individu::Individu(std::vector<short> vect){
+	std::copy(vect.begin(),vect.end(),parcour.begin());
 }
 
 void Individu::initInd(unsigned short taille){
-  distanceTotale=0;
-  fitness=100000.f;
-	 if(tailleTab!=0)return;
-	 tailleTab=taille;
-	 parcour=new unsigned short[tailleTab];
-	 for(short g=0;g<tailleTab;++g){
+	distanceTotale=0;
+	fitness=100000.f;
+	parcour.resize(taille);
+	for(unsigned short g=0;g<parcour.size();++g){
 		parcour[g]=g;
-	 }
-
-	 std::random_shuffle ( &parcour[0], &parcour[tailleTab] );//melanger tableau
-	 calculFitness();
+	}
+	std::random_shuffle ( parcour.begin(), parcour.end() );//melanger tableau
+	calculFitness();
 }
 
 void Individu::reverseCaseTab(unsigned short &a, unsigned short &b){
@@ -38,25 +43,23 @@ float Individu::getFitness(){
 }
 
 void Individu::calculFitness(){
-  short ii;
-	if(!parcour)return;
-	for(unsigned short i=0;i<tailleTab;++i){
-	  if(i!=tailleTab-1)ii=i+1;
-	  else ii=0;//fermer la boucle
+	short ii;
+	for(unsigned short i=0;i<parcour.size();++i){
+		if(i!=parcour.size()-1)ii=i+1;
+		else ii=0;//fermer la boucle
 		distanceTotale+=carteG->returnDistance(parcour[i], parcour[ii]);
 	}
 	fitness-=distanceTotale;
 }
 
 void Individu::afficherInd(){
-	for(unsigned short i=0;i<tailleTab;i++){
-	 cout<<parcour[i]<<"   ";
+	for(unsigned short i=0;i<parcour.size();i++){
+		cout<<parcour[i]<<"   ";
 	}
 	cout<<endl;
 	cout<<"fitness::"<<fitness<<endl<<"distanceTotale::"<<distanceTotale<<endl<<endl;
 }
 
 Individu::~Individu(){
-	if(parcour)delete [] parcour;
 }
 

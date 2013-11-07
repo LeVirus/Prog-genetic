@@ -8,7 +8,7 @@
 class Population;
 class Carte;
 class Fenetre;
-class Traitement;
+class OpSelect;
 struct Donnees;
 
 //Carte *carteG;
@@ -20,7 +20,7 @@ class Racine{
 	 short frame, nbreVille, nbreIndividu;
 	 Population *pop;
 	 Fenetre *fenetre;
-	 Traitement *classeAlgo;
+	 OpSelect *classeAlgo;
 	 Donnees *stockDonnees;
 	 
   public:
