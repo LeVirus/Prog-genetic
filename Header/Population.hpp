@@ -12,7 +12,7 @@ class Population{
 	 unsigned short nbrIndividu, nbrVille;
   public:
 	 Population(unsigned short nombreVille, unsigned short nombreIndividu);
-	 std::vector<Individu> vectorInd();
+	 const std::vector<Individu> &getVectorInd();
 	 void afficherPop();
 	 ~Population();
 };
