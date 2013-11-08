@@ -38,10 +38,10 @@ void Racine::launch(Donnees *d){
 	 popG=pop;
 	 //pop->afficherPop();
 	 classeAlgo->init();
-	 //classeAlgo->roulette(0);
-	 classeAlgo->roulette(1);
+	 std::vector<unsigned short> gro = classeAlgo->roulette(5,0);
+	 //classeAlgo->roulette(1);
 	 //classeAlgo->tournoi(5, 10);
-	 classeAlgo->elitisme(5);
+	 //classeAlgo->elitisme(5);
 }
 
 void Racine::lancerProg(){

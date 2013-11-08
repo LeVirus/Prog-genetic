@@ -60,43 +60,52 @@ void OpSelect::init(){
 }
 
 
-short OpSelect::roulette(short choose){
-	short nbrAleat, positionTab=vectMemo.size()-1, finall=0, tranche=vectMemo.size();
-	if(choose==0){//roulette
-		nbrAleat=rand()%static_cast<short>(etendue);
-	}
-	else if(choose==1){//select par rang
-		for(short i=vectMemo.size()-1;i>0;i--)tranche+=i;
-		nbrAleat=rand()%tranche;
-	}
+std::vector<unsigned short> OpSelect::roulette(unsigned short nbrInd, unsigned short choose){
+	std::vector<unsigned short> stockInd;
+	stockInd.resize(nbrInd);
+	for(unsigned short j=0;j<nbrInd;j++){
+	  short nbrAleat, finall=0, tranche=vectMemo.size();
+	 if(choose==0){//roulette
+		  nbrAleat=rand()%static_cast<short>(etendue);
+	 }
+	 else if(choose==1){//select par rang
+		  for(short i=vectMemo.size()-1;i>0;i--)tranche+=i;
+		  nbrAleat=rand()%tranche;
+	 }
 
-	//for(std::vector<Individu>::iterator itB=vectMemo.end();itB!=vectMemo.begin();itB--){
-	for(unsigned short i=0;i<vectMemo.size();i++){
-		cout<<tranche<<"sdf"<<nbrAleat<<" na "<< stockDonneesPop[positionTab-1].stSelectRang<<endl;
-		if(positionTab==0){
-			break;
-		}
-		if( choose==0  &&  nbrAleat>stockDonneesPop[positionTab-1].rouletteCumul ){
-			finall=positionTab;
-			break;
-		}
-		else if( choose==1  && nbrAleat>static_cast<short>(stockDonneesPop[positionTab-1].stSelectRang ) ){
-			finall=positionTab;
-			break;
-		}
-		positionTab--;
+	 for( short i=vectMemo.size()-1;i>=0;i--){
+		  cout<<tranche<<"sdf"<<nbrAleat<<" na "<< stockDonneesPop[i-1].stSelectRang<<endl;
+		  if(i==0){
+			 break;
+		  }
+		  if( choose==0  &&  nbrAleat>stockDonneesPop[i-1].rouletteCumul ){
+			 finall=i;
+			 break;
+		  }
+		  else if( choose==1  && nbrAleat>static_cast<short>(stockDonneesPop[i-1].stSelectRang ) ){
+			 finall=i;
+			 break;
+		  }
+		  //positionTab--;
+	 }
+	 //cout<<"final roulette ou select"<<nbrAleat<<"  "<<finall<<endl;
+	 //vectMemo[finall].afficherInd();
+	 cout<<finall<<endl;
+	 /*stockInd[j]*/stockInd[j]=finall;
+	 
 	}
-	cout<<"final roulette ou select"<<nbrAleat<<"  "<<finall<<endl;
-	vectMemo[finall].afficherInd();
-	return finall;
+	for(unsigned short j=0;j<nbrInd;j++){
+	  cout<<stockInd[j]<<endl;
+	}
+	return stockInd;
 }
 
-short OpSelect::tournoi(unsigned short nbrInd, unsigned short nbrParticipant){
+std::vector<unsigned short> OpSelect::tournoi(unsigned short nbrInd, unsigned short nbrParticipant){
 	std::set<short> setSelectAleat;
 	std::set<short>::iterator itSetA, itSetB;
-	std::vector<short> gagnants;
+	std::vector<unsigned short> gagnants;
 
-	if(nbrParticipant>vectMemo.size()  ||  nbrInd>vectMemo.size())return 0;//verif entrées coherentes
+	if(nbrParticipant>vectMemo.size()  ||  nbrInd>vectMemo.size())return gagnants;//verif entrées coherentes
 	gagnants.resize(nbrInd);
 
 	for(unsigned short i=0;i<gagnants.size();i++){//1ere boucle
@@ -129,14 +138,14 @@ short OpSelect::tournoi(unsigned short nbrInd, unsigned short nbrParticipant){
 		gagnants[i]=(*itSetA);//placer gagnant dans le tableau
 		cout<<gagnants[i]<<"i"<<endl;
 	}
-	return 0;
+	return gagnants;
 }
 
-short OpSelect::elitisme(unsigned short nbrASelect){
+std::vector<unsigned short> OpSelect::elitisme(unsigned short nbrASelect){
 	unsigned short tmp;
-	std::vector<short> select;
+	std::vector<unsigned short> select;
 
-	if(nbrASelect>vectMemo.size())return 0;
+	if(nbrASelect>vectMemo.size())return select;
 	select.resize(nbrASelect);
 	for(unsigned short i=1;i<nbrASelect+1;i++){
 		for(unsigned short j=0;j<stockDonneesPop.size();j++){
@@ -151,7 +160,7 @@ short OpSelect::elitisme(unsigned short nbrASelect){
 	for(unsigned short i=0;i<select.size();i++){
 		cout<<select[i]<<"sdg"<<endl;
 	}
-	return 0;
+	return select;
 }
 
 OpSelect::~OpSelect(){

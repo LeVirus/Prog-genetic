@@ -16,6 +16,8 @@ class Individu{
 		void afficherInd();
 		void initInd(unsigned short taille);
 		void reverseCaseTab(unsigned short &a, unsigned short &b);
+		//Individu copierInd()const;
+		Individu operator=(const Individu &a) const;
 		~Individu();
 };
 

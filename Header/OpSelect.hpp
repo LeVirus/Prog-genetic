@@ -18,9 +18,9 @@ class OpSelect{
 	public:
 		OpSelect();
 		void init();
-		short roulette(short choose);
-		short tournoi(unsigned short nbrPairInd, unsigned short nbrPairParticipant);
-		short elitisme(unsigned short nbrASelect);
+		std::vector<unsigned short> roulette(unsigned short nbrInd, unsigned short choose);
+		std::vector<unsigned short> tournoi(unsigned short nbrPairInd, unsigned short nbrPairParticipant);
+		std::vector<unsigned short> elitisme(unsigned short nbrASelect);
 		~OpSelect();
 };
 

@@ -60,6 +60,14 @@ void Individu::afficherInd(){
 	cout<<"fitness::"<<fitness<<endl<<"distanceTotale::"<<distanceTotale<<endl<<endl;
 }
 
+/*Individu Individu::copierInd() const{
+	return Individu(parcour);
+}*/
+
+Individu Individu::operator=(const Individu &a) const{
+	return Individu(a.parcour);
+}
+
 Individu::~Individu(){
 }
 
