@@ -53,5 +53,4 @@ Racine::~Racine(){
 	 if(carte)delete carte;
 	 //if(pop)delete pop;BUUUUUUUUUUUUUUUUUUUGGGGGGGGGGGGGGGGGGGGGGGGGG
 	 if(classeAlgo)delete classeAlgo;
-
 }

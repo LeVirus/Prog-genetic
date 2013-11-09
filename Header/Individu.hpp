@@ -10,7 +10,10 @@ class Individu{
 	public:
 		Individu();
 		Individu(unsigned short taille);
-		Individu(std::vector<short> vect);
+		Individu(const std::vector<short> &vect);
+		Individu(const Individu &a);
+		void modifInd(const std::vector<short> &vect);
+		void modifInd(const Individu &a);
 		void calculFitness();
 		float getFitness();
 		void afficherInd();

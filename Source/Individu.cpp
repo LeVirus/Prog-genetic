@@ -16,7 +16,23 @@ Individu::Individu(unsigned short taille){
 	initInd(taille);
 }
 
-Individu::Individu(std::vector<short> vect){
+Individu::Individu(const std::vector<short> &vect){
+	modifInd(vect);
+	calculFitness();
+}
+
+Individu::Individu(const Individu &a){
+	modifInd(a.parcour);
+	calculFitness();
+}
+
+void Individu::modifInd(const Individu &a){
+	modifInd(a.parcour);
+	calculFitness();
+}
+
+void Individu::modifInd(const std::vector<short> &vect){
+	parcour.resize(vect.size() );
 	std::copy(vect.begin(),vect.end(),parcour.begin());
 }
 
@@ -62,7 +78,7 @@ void Individu::afficherInd(){
 
 /*Individu Individu::copierInd() const{
 	return Individu(parcour);
-}*/
+	}*/
 
 Individu Individu::operator=(const Individu &a) const{
 	return Individu(a.parcour);
