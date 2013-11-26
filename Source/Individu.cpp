@@ -12,6 +12,11 @@ Individu::Individu(){
 
 }
 
+std::vector<short> Individu::getParcour() const{
+	return parcour;
+}
+
+
 Individu::Individu(unsigned short taille){
 	initInd(taille);
 }

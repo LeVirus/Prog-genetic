@@ -1,6 +1,7 @@
 #include "Population.hpp"
 #include "Individu.hpp"
 #include <iostream>
+#include <algorithm>
 
 extern Population *popG;
 
@@ -17,27 +18,34 @@ Population::Population(unsigned short nombreVille, unsigned short nombreIndividu
 
 }
 
+Population::Population(const std::vector<Individu> &vect){
+	nbrVille=vect[0].getParcour().size(); 
+	nbrIndividu=vect.size();
+	tabIndividu.resize(nbrIndividu);
+	std::copy(vect.begin(), vect.end(), tabIndividu.begin());
+}
+
 Population::Population(const std::vector<unsigned short> &vect){
 	if(popG){
 		nbrVille=popG->nbrVille; 
 		nbrIndividu=popG->nbrIndividu;
 		tabIndividu.resize(popG->nbrIndividu);
+		std::vector<Individu> memInd=popG->getVectorInd();
+
+		for(unsigned short i=0;i<tabIndividu.size();++i)
+			itTabInd[i]=memInd[ vect[i] ];
 	}
-	for(itTabInd=tabIndividu.begin();itTabInd<tabIndividu.end();itTabInd++){
-		(*itTabInd).initInd(nbrVille);
-	}
-	std::copy(vect.begin(),vect.end(), tabIndividu.begin());
 }
 
-	const std::vector<Individu> &Population::getVectorInd(){
-		return tabIndividu;
-	}
+const std::vector<Individu> &Population::getVectorInd(){
+	return tabIndividu;
+}
 
-	void Population::afficherPop(){
-		for(itTabInd=tabIndividu.begin();itTabInd<tabIndividu.end();itTabInd++){
-			(*itTabInd).afficherInd();
-		}
+void Population::afficherPop(){
+	for(itTabInd=tabIndividu.begin();itTabInd<tabIndividu.end();itTabInd++){
+		(*itTabInd).afficherInd();
 	}
+}
 
-	Population::~Population(){}
+Population::~Population(){}
 

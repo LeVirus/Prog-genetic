@@ -4,6 +4,7 @@
 #include "Population.hpp"
 #include "Fenetre.hpp"
 #include "OpSelect.hpp"
+#include "OpReproduction.hpp"
 #include <iostream>
 
 using namespace std;
@@ -15,7 +16,7 @@ Racine::Racine(){
 	 pop=NULL;
 	 carte=NULL;
 	 stockDonnees=NULL;
-	 classeAlgo=new OpSelect;
+	 classeOpSelect=new OpSelect;
 	 fenetre=new Fenetre(this);
 	 //if(  !texture.loadFromFile( "Images/textureA.png" )  )cout<<"fail load im"<<endl;
 }
@@ -35,13 +36,21 @@ void Racine::launch(Donnees *d){
 	 carteG=carte;
 	 //carte->affichage();
 	 pop=new Population(stockDonnees->nbrVille, stockDonnees->nbrIndividu);
-	 popG=pop;
+	 popG=pop;//var globale
 	 //pop->afficherPop();
-	 classeAlgo->init();
-	 std::vector<unsigned short> gro = classeAlgo->roulette(5,0);
-	 //classeAlgo->roulette(1);
-	 //classeAlgo->tournoi(5, 10);
-	 //classeAlgo->elitisme(5);
+	 classeOpSelect->init();
+	 std::vector<unsigned short> gro = classeOpSelect->roulette(5,0);
+cout<<"fin rouletee"<<endl;
+for(unsigned short i=0;i<gro.size();++i){
+	cout<<gro[i]<<endl;
+}
+	 //classeOpSelect->roulette(1);
+	 //classeOpSelect->tournoi(5, 10);
+	 //classeOpSelect->elitisme(5);
+	 classeOpReprod=new OpReproduction(gro);
+cout<<"fin op reprod"<<endl;
+	 Population enfants=classeOpReprod->newGen();
+	 enfants.afficherPop();
 }
 
 void Racine::lancerProg(){
@@ -52,5 +61,5 @@ Racine::~Racine(){
 	 if(fenetre)delete fenetre;
 	 if(carte)delete carte;
 	 //if(pop)delete pop;BUUUUUUUUUUUUUUUUUUUGGGGGGGGGGGGGGGGGGGGGGGGGG
-	 if(classeAlgo)delete classeAlgo;
+	 if(classeOpSelect)delete classeOpSelect;
 }

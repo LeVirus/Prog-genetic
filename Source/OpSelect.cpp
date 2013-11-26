@@ -60,42 +60,43 @@ void OpSelect::init(){
 }
 
 
-std::vector<unsigned short> OpSelect::roulette(unsigned short nbrInd, unsigned short choose){
+std::vector<unsigned short> OpSelect::roulette(unsigned short nbrInd, unsigned short choose){ //bug de merde je sais pas ou
 	std::vector<unsigned short> stockInd;
 	stockInd.resize(nbrInd);
 	for(unsigned short j=0;j<nbrInd;j++){
-	  short nbrAleat, finall=0, tranche=vectMemo.size();
-	 if(choose==0){//roulette
-		  nbrAleat=rand()%static_cast<short>(etendue);
-	 }
-	 else if(choose==1){//select par rang
-		  for(short i=vectMemo.size()-1;i>0;i--)tranche+=i;
-		  nbrAleat=rand()%tranche;
-	 }
+		unsigned int nbrAleat, finall=0, tranche=vectMemo.size();
+		if(choose==0){//roulette
+			nbrAleat=rand()%static_cast<int>(etendue);
+		}
+		else if(choose==1){//select par rang
+			for(short i=vectMemo.size()-1;i>0;i--)tranche+=i;
+			nbrAleat=rand()%tranche;
+		}
 
-	 for( short i=vectMemo.size()-1;i>=0;i--){
-		  cout<<tranche<<"sdf"<<nbrAleat<<" na "<< stockDonneesPop[i-1].stSelectRang<<endl;
-		  if(i==0){
-			 break;
-		  }
-		  if( choose==0  &&  nbrAleat>stockDonneesPop[i-1].rouletteCumul ){
-			 finall=i;
-			 break;
-		  }
-		  else if( choose==1  && nbrAleat>static_cast<short>(stockDonneesPop[i-1].stSelectRang ) ){
-			 finall=i;
-			 break;
-		  }
-		  //positionTab--;
-	 }
-	 //cout<<"final roulette ou select"<<nbrAleat<<"  "<<finall<<endl;
-	 //vectMemo[finall].afficherInd();
-	 cout<<finall<<endl;
-	 /*stockInd[j]*/stockInd[j]=finall;
-	 
+		for( short i=vectMemo.size()-1;i>0;i--){
+			cout<<"sdf"<<nbrAleat<<" na "<< stockDonneesPop[i-1].rouletteCumul<<endl;
+			if(i==0){
+				break;
+			}
+			if( choose==0  &&  nbrAleat>stockDonneesPop[i-1].rouletteCumul ){
+				finall=i;
+				break;
+			}
+			else if( choose==1  && nbrAleat>static_cast<unsigned short>(stockDonneesPop[i-1].stSelectRang ) ){
+				finall=i;
+				break;
+			}
+			//positionTab--;
+		}
+		//cout<<"final roulette ou select"<<nbrAleat<<"  "<<finall<<endl;
+		//vectMemo[finall].afficherInd();
+		cout<<finall<<endl;
+		/*stockInd[j]*/stockInd[j]=finall;
+
+		cout<<"dfft"<<endl;
 	}
 	for(unsigned short j=0;j<nbrInd;j++){
-	  cout<<stockInd[j]<<endl;
+		cout<<stockInd[j]<<endl;
 	}
 	return stockInd;
 }
