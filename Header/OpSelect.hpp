@@ -7,7 +7,7 @@
 class Population;
 
 struct StockTraitement{
-	short rouletteCumul, stSelectRang;
+	unsigned short rouletteCumul, stSelectRang;
 };
 
 class OpSelect{

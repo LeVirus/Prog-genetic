@@ -16,11 +16,13 @@ class Carte{
 	 //std::list<short>::iterator itVille;
   public:
 	 Carte(short nombre);
+	 unsigned short retourNbrVille();
 	 void initVille();
 	 void procheVoisins(short choix);
 	 void affichage();
 	 static float distance(Ville a, Ville b);
 	 float returnDistance(short villeA, short villeB);
+unsigned short getNbrVille();
 	 ~Carte();
 }; 
 

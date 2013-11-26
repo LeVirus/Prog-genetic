@@ -9,6 +9,7 @@ class Population;
 class Carte;
 class Fenetre;
 class OpSelect;
+class OpReproduction;
 struct Donnees;
 
 //Carte *carteG;
@@ -16,11 +17,12 @@ struct Donnees;
 class Racine{
   private:
 	 //sf::Texture texture;
+	 OpReproduction *classeOpReprod;
 	 Carte *carte;
 	 short frame, nbreVille, nbreIndividu;
 	 Population *pop;
 	 Fenetre *fenetre;
-	 OpSelect *classeAlgo;
+	 OpSelect *classeOpSelect;
 	 Donnees *stockDonnees;
 	 
   public:

@@ -9,6 +9,7 @@ class Individu{
 		std::vector<short> parcour;
 	public:
 		Individu();
+		std::vector<short> getParcour() const;
 		Individu(unsigned short taille);
 		Individu(const std::vector<short> &vect);
 		Individu(const Individu &a);
