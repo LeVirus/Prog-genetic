@@ -6,18 +6,18 @@
 class Individu{
 	private:
 		float distanceTotale, fitness;
-		std::vector<short> parcour;
+		std::vector<unsigned short> parcour;
 	public:
 		Individu();
-		std::vector<short> getParcour() const;
+		std::vector<unsigned short> getParcour() const;
 		Individu(unsigned short taille);
-		Individu(const std::vector<short> &vect);
+		Individu(const std::vector<unsigned short> &vect);
 		Individu(const Individu &a);
-		void modifInd(const std::vector<short> &vect);
+		void modifInd(const std::vector<unsigned short> &vect);
 		void modifInd(const Individu &a);
 		void calculFitness();
 		float getFitness();
-		void afficherInd();
+		void afficherInd()const;
 		void initInd(unsigned short taille);
 		void reverseCaseTab(unsigned short &a, unsigned short &b);
 		//Individu copierInd()const;

@@ -12,8 +12,9 @@ class OpReproduction{
 	public:
 		OpReproduction(const std::vector<unsigned short> &vect);
 		Population newGen();
-		void croisement( Individu a, Individu b, short point,short curseur);
-		void croisement(Individu a, Individu b);
+		void croisement(unsigned short point,unsigned short curseur);
+		void croisement(unsigned short pointA, unsigned short pointB, unsigned short curseur);
+		void verifInd(std::vector<unsigned short> &vect);
 		~OpReproduction();
 };
 
