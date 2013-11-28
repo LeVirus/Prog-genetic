@@ -22,7 +22,9 @@ Population::Population(const std::vector<Individu> &vect){
 	nbrVille=vect[0].getParcour().size(); 
 	nbrIndividu=vect.size();
 	tabIndividu.resize(nbrIndividu);
-	std::copy(vect.begin(), vect.end(), tabIndividu.begin());
+	for(unsigned short i=0;i<tabIndividu.size();++i){
+		tabIndividu[i].modifInd(vect[i]);
+	}
 }
 
 Population::Population(const std::vector<unsigned short> &vect){
@@ -37,7 +39,7 @@ Population::Population(const std::vector<unsigned short> &vect){
 	}
 }
 
-const std::vector<Individu> &Population::getVectorInd(){
+const std::vector<Individu> Population::getVectorInd(){
 	return tabIndividu;
 }
 

@@ -55,12 +55,13 @@ void OpSelect::init(){
 	}
 	for(unsigned short i=1;i<stockDonneesPop.size();i++){
 		stockDonneesPop[i].stSelectRang+=stockDonneesPop[i-1].stSelectRang;
-		cout<<stockDonneesPop[i].stSelectRang<<endl<<"classment"<<endl;}
+		//cout<<stockDonneesPop[i].stSelectRang<<endl<<"classment"<<endl;
+	}
 
 }
 
 
-std::vector<unsigned short> OpSelect::roulette(unsigned short nbrInd, unsigned short choose){ //bug de merde je sais pas ou
+std::vector<unsigned short> OpSelect::roulette(unsigned short nbrInd, unsigned short choose){ 
 	std::vector<unsigned short> stockInd;
 	stockInd.resize(nbrInd);
 	for(unsigned short j=0;j<nbrInd;j++){
@@ -74,7 +75,7 @@ std::vector<unsigned short> OpSelect::roulette(unsigned short nbrInd, unsigned s
 		}
 
 		for( short i=vectMemo.size()-1;i>0;i--){
-			cout<<"sdf"<<nbrAleat<<" na "<< stockDonneesPop[i-1].rouletteCumul<<endl;
+			cout<<"sdf"<<nbrAleat<<" na "<< stockDonneesPop[i-1].stSelectRang<<endl;
 			if(i==0){
 				break;
 			}
@@ -157,9 +158,6 @@ std::vector<unsigned short> OpSelect::elitisme(unsigned short nbrASelect){
 				break;
 			}
 		}
-	}
-	for(unsigned short i=0;i<select.size();i++){
-		cout<<select[i]<<"sdg"<<endl;
 	}
 	return select;
 }

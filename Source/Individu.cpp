@@ -12,7 +12,7 @@ Individu::Individu(){
 
 }
 
-std::vector<short> Individu::getParcour() const{
+std::vector<unsigned short> Individu::getParcour() const{
 	return parcour;
 }
 
@@ -21,7 +21,7 @@ Individu::Individu(unsigned short taille){
 	initInd(taille);
 }
 
-Individu::Individu(const std::vector<short> &vect){
+Individu::Individu(const std::vector<unsigned short> &vect){
 	modifInd(vect);
 	calculFitness();
 }
@@ -32,11 +32,13 @@ Individu::Individu(const Individu &a){
 }
 
 void Individu::modifInd(const Individu &a){
+	distanceTotale=0;
+	fitness=100000.f;
 	modifInd(a.parcour);
 	calculFitness();
 }
 
-void Individu::modifInd(const std::vector<short> &vect){
+void Individu::modifInd(const std::vector<unsigned short> &vect){
 	parcour.resize(vect.size() );
 	std::copy(vect.begin(),vect.end(),parcour.begin());
 }
@@ -73,7 +75,7 @@ void Individu::calculFitness(){
 	fitness-=distanceTotale;
 }
 
-void Individu::afficherInd(){
+void Individu::afficherInd()const{
 	for(unsigned short i=0;i<parcour.size();i++){
 		cout<<parcour[i]<<"   ";
 	}
@@ -86,7 +88,7 @@ void Individu::afficherInd(){
 	}*/
 
 Individu Individu::operator=(const Individu &a) const{
-	return Individu(a.parcour);
+	return Individu(a);
 }
 
 Individu::~Individu(){
