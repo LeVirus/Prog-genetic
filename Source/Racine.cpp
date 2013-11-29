@@ -30,6 +30,8 @@ void Racine::initialiser(){
 }
 
 void Racine::launch(Donnees *d){
+	bool undone=true;
+	unsigned short cmpt=0;
 	if(stockDonnees)return;
 	stockDonnees=d;
 	carte=new Carte(stockDonnees->nbrVille);
@@ -37,8 +39,10 @@ void Racine::launch(Donnees *d){
 	//carte->affichage();
 	pop=new Population(stockDonnees->nbrVille, stockDonnees->nbrIndividu);
 	popG=pop;//var globale
-//	pop->afficherPop();
-cout<<"fin affich total"<<endl;
+	do{
+	cout<<"deby affich total"<<endl;
+	pop->afficherPop();
+	cout<<"fin affich total"<<endl;
 	classeOpSelect->init();
 	// std::vector<unsigned short> gro = classeOpSelect->roulette(5,1);
 	// std::vector<unsigned short> gro = classeOpSelect->roulette(5,0);
@@ -48,7 +52,11 @@ cout<<"fin affich total"<<endl;
 	cout<<"fin op reprod"<<endl;
 	Population enfants=classeOpReprod->newGen();
 	cout<<"fin newggg"<<endl;
-	 enfants.afficherPop();
+	//enfants.afficherPop();
+	//classeOpReplace.remplacementStat(gro, enfants.getVectorInd());
+	classeOpReplace.remplacementElit(enfants.getVectorInd());
+	cmpt++;
+	}while(cmpt<3);
 }
 
 void Racine::lancerProg(){

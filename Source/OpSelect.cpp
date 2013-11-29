@@ -15,6 +15,13 @@ OpSelect::OpSelect(){
 	etendue=0.f;
 }
 
+unsigned short OpSelect::getWorst(){
+	for(unsigned short i=0;i<stockDonneesPop.size();i++){
+		if(stockDonneesPop[i].stSelectRang==1)return i;
+	}
+	return 0;
+}
+
 void OpSelect::init(){
 	std::multiset<float> msetClassmtFitness;
 	short positionTab=0, cmpt;
@@ -54,12 +61,17 @@ void OpSelect::init(){
 		cmpt--;
 	}
 	for(unsigned short i=1;i<stockDonneesPop.size();i++){
+
 		stockDonneesPop[i].stSelectRang+=stockDonneesPop[i-1].stSelectRang;
 		//cout<<stockDonneesPop[i].stSelectRang<<endl<<"classment"<<endl;
 	}
 
 }
 
+
+const std::vector<StockTraitement> &OpSelect::getDonneesPop(){
+	return stockDonneesPop;
+}
 
 std::vector<unsigned short> OpSelect::roulette(unsigned short nbrInd, unsigned short choose){ 
 	std::vector<unsigned short> stockInd;

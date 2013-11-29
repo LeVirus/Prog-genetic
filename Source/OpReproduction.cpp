@@ -11,9 +11,10 @@ extern  Carte *carteG;
 using namespace std;
 
 OpReproduction::OpReproduction(const std::vector<unsigned short> &vect){
-	indNewGen.resize(vect.size());
+	if(vect.size()%2==0)indNewGen.resize(vect.size());
+	else indNewGen.resize(vect.size()-1);
 	std::vector<Individu> mem=popG->getVectorInd();//recup popInitiale
-	for(unsigned short i=0;i<vect.size();i++){
+	for(unsigned short i=0;i<indNewGen.size();i++){
 		indNewGen[i].modifInd( popG->getVectorInd()[ vect[i] ] );
 		//indNewGen[i].afficherInd();
 	}
@@ -22,14 +23,14 @@ OpReproduction::OpReproduction(const std::vector<unsigned short> &vect){
 Population OpReproduction::newGen(){
 	unsigned short tailleParcour=indNewGen[0].getParcour().size();
 	//std::vector<Individu> mem=popG->getVectorInd();//recup popInitiale
-	//Population generationSuivante(carteG->getNbrVille(), vectMemo.size()); 
 	for(unsigned short i=0;i<indNewGen.size()/2;i++){
-indNewGen[i*2].afficherInd();
-indNewGen[i*2+1].afficherInd();
-		//croisement(rand()%( tailleParcour-2 )+1, i*2 );//recup taille parcour
-unsigned short random=rand()%( tailleParcour-2 )+1,
-	randomB=tailleParcour-(rand()%(tailleParcour-random-1)+1);
+		indNewGen[i*2].afficherInd();
+		indNewGen[i*2+1].afficherInd();
+		unsigned short random=rand()%( tailleParcour-2 )+1,
+									 randomB=tailleParcour-(rand()%(tailleParcour-random-1)+1);
 		croisement(random, randomB, i*2 );//recup taille parcour
+		if( popG->estPresent( indNewGen[2*i].getFitness() ) )mutation( indNewGen[i*2] );
+		if( popG->estPresent( indNewGen[2*i+1].getFitness() ) )mutation( indNewGen[i*2+1] );
 	}
 	return Population(indNewGen);
 }
@@ -65,10 +66,10 @@ void OpReproduction::croisement(unsigned short point,unsigned short curseur){
 }
 
 void OpReproduction::croisement(unsigned short pointA,unsigned short pointB,unsigned short curseur){
-cout<<"tyd"<<pointA<<pointB<<endl;
+	cout<<"tyd"<<pointA<<pointB<<endl;
 	if(pointA>=indNewGen[0].getParcour().size() || pointB>=indNewGen[0].getParcour().size())return;
 	if(pointA>=pointB)return;
-cout<<"ddd"<<endl;
+	cout<<"ddd"<<endl;
 	std::vector<unsigned short> tmpA=indNewGen[curseur].getParcour(), tmpB=indNewGen[curseur+1].getParcour(), tmp;
 	tmp.resize(pointB-pointA);
 	std::vector<unsigned short>::iterator 
@@ -80,8 +81,10 @@ cout<<"ddd"<<endl;
 	cout<<"pointB::"<<pointB<<endl;
 	for(unsigned int y=0;y<tmpA.size();++y)cout<<tmpB[y];
 	cout<<"  finB"<<endl;
-	std::copy (itB, itBB, tmp.begin());
-	std::copy (itA, itAA, itB);
+	std::copy (itB, ++itBB, tmp.begin());
+	std::copy (itA, ++itAA, itB);
+	itBB--;
+	itAA--;
 	for(unsigned int y=0;y<tmpA.size();++y)cout<<tmpB[y];
 	cout<<"  finB"<<endl;
 	verifInd(tmpB);
@@ -105,8 +108,13 @@ cout<<"ddd"<<endl;
 
 }
 
-void OpReproduction::mutation(std::vector<unsigned short> &vect){
-
+void OpReproduction::mutation(Individu &a){
+	unsigned short randA, randB;
+	randA=rand()%a.getParcour().size();
+	do{
+		randB=rand()%a.getParcour().size();
+	}while(randA==randB);
+	a.reverseCaseTab(randA, randB);
 }
 
 void OpReproduction::verifInd(std::vector<unsigned short> &vect){
