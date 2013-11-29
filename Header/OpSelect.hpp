@@ -17,6 +17,8 @@ class OpSelect{
 		std::vector<Individu> vectMemo;
 	public:
 		OpSelect();
+		const std::vector<StockTraitement> &getDonneesPop();
+		unsigned short getWorst();
 		void init();
 		std::vector<unsigned short> roulette(unsigned short nbrInd, unsigned short choose);
 		std::vector<unsigned short> tournoi(unsigned short nbrPairInd, unsigned short nbrPairParticipant);

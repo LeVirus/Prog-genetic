@@ -4,6 +4,7 @@
 
 #include <SFML/Graphics.hpp>
 #include <SFGUI/SFGUI.hpp>
+#include "OpReplace.hpp"
 
 class Population;
 class Carte;
@@ -16,6 +17,7 @@ struct Donnees;
 
 class Racine{
   private:
+	 OpReplace classeOpReplace;
 	 //sf::Texture texture;
 	 OpReproduction *classeOpReprod;
 	 Carte *carte;
