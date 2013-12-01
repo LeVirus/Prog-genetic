@@ -1,0 +1,36 @@
+Le programme est réalisé en c++, la bibliotheque SFML est utilisée avec son extention SFGUI(pour les formulaires).
+Les containers vector et set sont utilisés.
+L'utilisateur peut entrer des informations et lancer l'algorithme avec le formulaire.
+Si des champs ne sont pas remplis le programme prendra des valeurs par défaut.
+Touche Echap pour fermer le programme.
+
+Formulaire::
+	Choix nombre ville
+	Choix nombre Individu
+	Choix nombre Individu a Selectionner.
+	Choix Opérateur de selection
+	Choix Opérateur de Remplacement
+	Choix mode de croisement(reproduction)
+	Lancer algorithme	
+
+Etapes algorithme::
+-Le programme genere des villes aléatoirement sur un plan 2 dimentions.
+-A partir de ces villes la population initiale est créée.
+-Les opérateurs(sélection, reproduction et remplacement)prélèvent des informations et effectue des modifications sur la population.
+-La population ainsi modifiée s'affiche.
+-Le programme peut faire plusieurs itérations.
+
+Toutes les classes sont liées à la classe "Racine", de ce fait toutes les fonctions algorithmique sont appelées a partir de Racine.
+Les évenements sont gérés par la classe "Fenetre".
+La population générale ainsi que la carte des villes sont en variables globales.  
+
+Diagramme classes::
+
+Racine
+	Population
+		Individu
+	Carte
+	Fenetre
+	OpSelect
+	OpReplace
+	OpReproduction
