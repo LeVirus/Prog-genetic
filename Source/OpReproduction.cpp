@@ -1,4 +1,5 @@
 #include "OpReproduction.hpp"
+#include "constantes.hpp"
 #include "Individu.hpp"
 #include "Carte.hpp"
 #include "Population.hpp"
@@ -10,25 +11,30 @@ extern  Carte *carteG;
 
 using namespace std;
 
+OpReproduction::OpReproduction(){}
+
 OpReproduction::OpReproduction(const std::vector<unsigned short> &vect){
+	init(vect);
+}
+
+void OpReproduction::init(const std::vector<unsigned short> &vect){//charger les individus selectionné dans opSelect
 	if(vect.size()%2==0)indNewGen.resize(vect.size());
 	else indNewGen.resize(vect.size()-1);
 	std::vector<Individu> mem=popG->getVectorInd();//recup popInitiale
 	for(unsigned short i=0;i<indNewGen.size();i++){
 		indNewGen[i].modifInd( popG->getVectorInd()[ vect[i] ] );
-		//indNewGen[i].afficherInd();
 	}
 }
 
-Population OpReproduction::newGen(){
+Population OpReproduction::newGen(unsigned short choose){
 	unsigned short tailleParcour=indNewGen[0].getParcour().size();
-	//std::vector<Individu> mem=popG->getVectorInd();//recup popInitiale
 	for(unsigned short i=0;i<indNewGen.size()/2;i++){
-		indNewGen[i*2].afficherInd();
-		indNewGen[i*2+1].afficherInd();
 		unsigned short random=rand()%( tailleParcour-2 )+1,
 									 randomB=tailleParcour-(rand()%(tailleParcour-random-1)+1);
-		croisement(random, randomB, i*2 );//recup taille parcour
+		if(choose==CROISEMENT_SIMPLE)//simple
+			croisement(random, i*2 );//recup taille parcour
+		else if(choose==CROISEMENT_COMPLEXE)//complexe
+			croisement(random, randomB, i*2 );//recup taille parcour
 		if( popG->estPresent( indNewGen[2*i].getFitness() ) )mutation( indNewGen[i*2] );
 		if( popG->estPresent( indNewGen[2*i+1].getFitness() ) )mutation( indNewGen[i*2+1] );
 	}
@@ -41,35 +47,18 @@ void OpReproduction::croisement(unsigned short point,unsigned short curseur){
 	tmp.resize(point);
 	std::vector<unsigned short>::iterator itA=std::find(tmpA.begin(), tmpA.end(),tmpA[point] ),
 		itB=std::find(tmpB.begin(), tmpB.end(),tmpB[point] );
-	cout<<"point::"<<point<<endl;
 	std::copy (tmpB.begin(), itB, tmp.begin());
 	std::copy (tmpA.begin(), itA, tmpB.begin());
-	//for(unsigned int y=0;y<tmpA.size();++y)cout<<tmpB[y];
-	//cout<<"  finB"<<endl;
 	verifInd(tmpB);
-	//for(unsigned int y=0;y<tmpA.size();++y)cout<<tmpB[y];
-	//cout<<"  finB"<<endl;
-	//indNewGen[curseur].afficherInd();
 	indNewGen[curseur].modifInd(tmpB);
-	//indNewGen[curseur].afficherInd();
 	std::copy (tmp.begin(), tmp.end(), tmpA.begin());
-	//for(unsigned int y=0;y<tmpA.size();++y)cout<<tmpA[y];
-	//cout<<"  finA"<<endl;
 	verifInd(tmpA);
-	//for(unsigned int y=0;y<tmpA.size();++y)cout<<tmpA[y];
-	//cout<<"  finA"<<endl;
 	indNewGen[curseur+1].modifInd(tmpA);
-	//indNewGen[curseur+1].afficherInd();
-
-	//indNewGen[curseur+1].afficherInd();
-	//indNewGen[curseur].afficherInd();
 }
 
 void OpReproduction::croisement(unsigned short pointA,unsigned short pointB,unsigned short curseur){
-	cout<<"tyd"<<pointA<<pointB<<endl;
 	if(pointA>=indNewGen[0].getParcour().size() || pointB>=indNewGen[0].getParcour().size())return;
 	if(pointA>=pointB)return;
-	cout<<"ddd"<<endl;
 	std::vector<unsigned short> tmpA=indNewGen[curseur].getParcour(), tmpB=indNewGen[curseur+1].getParcour(), tmp;
 	tmp.resize(pointB-pointA);
 	std::vector<unsigned short>::iterator 
@@ -77,35 +66,15 @@ void OpReproduction::croisement(unsigned short pointA,unsigned short pointB,unsi
 		itAA=std::find(tmpA.begin(), tmpA.end(),tmpA[pointB] ),
 		itB=std::find(tmpB.begin(), tmpB.end(),tmpB[pointA] ),
 		itBB=std::find(tmpB.begin(), tmpB.end(),tmpB[pointB] );
-	cout<<"pointA::"<<pointA<<endl;
-	cout<<"pointB::"<<pointB<<endl;
-	for(unsigned int y=0;y<tmpA.size();++y)cout<<tmpB[y];
-	cout<<"  finB"<<endl;
 	std::copy (itB, ++itBB, tmp.begin());
 	std::copy (itA, ++itAA, itB);
 	itBB--;
 	itAA--;
-	for(unsigned int y=0;y<tmpA.size();++y)cout<<tmpB[y];
-	cout<<"  finB"<<endl;
 	verifInd(tmpB);
-	for(unsigned int y=0;y<tmpA.size();++y)cout<<tmpB[y];
-	cout<<"  finB"<<endl;
-	//indNewGen[curseur].afficherInd();
 	indNewGen[curseur].modifInd(tmpB);
-	//indNewGen[curseur].afficherInd();
-	for(unsigned int y=0;y<tmpA.size();++y)cout<<tmpA[y];
-	cout<<"  finA"<<endl;
 	std::copy (tmp.begin(), tmp.end(), itA);
-	for(unsigned int y=0;y<tmpA.size();++y)cout<<tmpA[y];
-	cout<<"  finA"<<endl;
 	verifInd(tmpA);
-	for(unsigned int y=0;y<tmpA.size();++y)cout<<tmpA[y];
-	cout<<"  finA"<<endl;
 	indNewGen[curseur+1].modifInd(tmpA);
-	indNewGen[curseur+1].afficherInd();
-
-	//indNewGen[curseur+1].afficherInd();
-
 }
 
 void OpReproduction::mutation(Individu &a){

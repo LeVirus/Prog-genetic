@@ -30,8 +30,11 @@ void Racine::initialiser(){
 }
 
 void Racine::launch(Donnees *d){
-	bool undone=true;
+	classeOpReprod=new OpReproduction;
+	//bool undone=true;
+	Population enfants;
 	unsigned short cmpt=0;
+	std::vector<unsigned short> vectOpSelect; 
 	if(stockDonnees)return;
 	stockDonnees=d;
 	carte=new Carte(stockDonnees->nbrVille);
@@ -39,23 +42,50 @@ void Racine::launch(Donnees *d){
 	//carte->affichage();
 	pop=new Population(stockDonnees->nbrVille, stockDonnees->nbrIndividu);
 	popG=pop;//var globale
+		cout<<"debut affich init"<<endl;
+		pop->afficherPop();
+		cout<<"fin affich total"<<endl<<endl;
 	do{
-	cout<<"deby affich total"<<endl;
-	pop->afficherPop();
-	cout<<"fin affich total"<<endl;
-	classeOpSelect->init();
-	// std::vector<unsigned short> gro = classeOpSelect->roulette(5,1);
-	// std::vector<unsigned short> gro = classeOpSelect->roulette(5,0);
-	//std::vector<unsigned short> gro = classeOpSelect->tournoi(5, 10);
-	std::vector<unsigned short> gro = classeOpSelect->elitisme(5);
-	classeOpReprod=new OpReproduction(gro);
-	cout<<"fin op reprod"<<endl;
-	Population enfants=classeOpReprod->newGen();
-	cout<<"fin newggg"<<endl;
-	//enfants.afficherPop();
-	//classeOpReplace.remplacementStat(gro, enfants.getVectorInd());
-	classeOpReplace.remplacementElit(enfants.getVectorInd());
-	cmpt++;
+	cout<<"DEBUT ITERATION "<<endl<<endl<<endl;
+		classeOpSelect->init();
+		switch(d->opSelect){
+			case ROULETTE:
+				vectOpSelect=classeOpSelect->roulette(d->nbrIndSelect,0);
+				break;
+			case SELECT_RANG:
+				vectOpSelect=classeOpSelect->roulette(d->nbrIndSelect,1);
+				break;
+			case TOURNOI:
+				vectOpSelect=classeOpSelect->tournoi(d->nbrIndSelect, 10);
+				break;
+			case ELITISME:
+				vectOpSelect=classeOpSelect->elitisme(d->nbrIndSelect);
+				break;
+			default:
+				return;
+		};
+		classeOpReprod->init(vectOpSelect);
+		Population stock=classeOpReprod->newGen(d->opReprod);
+		//stock.afficherPop();
+		enfants.init( classeOpReprod->newGen(d->opReprod).getVectorInd() );
+		//enfants.afficherPop();
+		switch(d->opReplace){
+			case REPLACE_STAT:
+				classeOpReplace.remplacementStat(vectOpSelect, enfants.getVectorInd());
+				break;
+			case REPLACE_ELIT:
+				classeOpReplace.remplacementElit(enfants.getVectorInd());
+				break;
+			default:
+				return;
+		};
+		classeOpReplace.remplacementElit(enfants.getVectorInd());
+		cmpt++;
+		cout<<"debut affich "<<endl;
+		pop->afficherPop();
+		cout<<"fin affich total"<<endl<<endl;
+	cout<<"FIN ITERATION "<<endl<<endl<<endl;
+		//if(stockDonnees->)
 	}while(cmpt<3);
 }
 
@@ -66,6 +96,6 @@ void Racine::lancerProg(){
 Racine::~Racine(){
 	if(fenetre)delete fenetre;
 	if(carte)delete carte;
-	//if(pop)delete pop;BUUUUUUUUUUUUUUUUUUUGGGGGGGGGGGGGGGGGGGGGGGGGG
+	if(pop)delete pop;
 	if(classeOpSelect)delete classeOpSelect;
 }

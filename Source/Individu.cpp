@@ -39,8 +39,11 @@ void Individu::modifInd(const Individu &a){
 }
 
 void Individu::modifInd(const std::vector<unsigned short> &vect){
+	distanceTotale=0;
+	fitness=100000.f;
 	parcour.resize(vect.size() );
 	std::copy(vect.begin(),vect.end(),parcour.begin());
+	calculFitness();
 }
 
 void Individu::initInd(unsigned short taille){

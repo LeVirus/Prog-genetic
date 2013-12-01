@@ -11,8 +11,10 @@ Fenetre::Fenetre(Racine *a){
 	 windowSF.create(sf::VideoMode(LARGEUR_FENETRE, LONGUEUR_FENETRE), "shoot", sf::Style::Default);
 	 // MIN MAX PAS
 	 spinNombreVille = sfg::SpinButton::Create( 5.f, 20.f, 1.f );
+	 spinNbrIndSelect = sfg::SpinButton::Create( 4.f, 200.f, 2.f );
 	 // taille du spinbox
 	 spinNombreVille->SetRequisition( sf::Vector2f( 80.f, 0.f ) );
+	 spinNbrIndSelect->SetRequisition( sf::Vector2f( 80.f, 0.f ) );
 	 // Set the number of digits to display after the decimal point.
 	 //spinNombreVille->SetDigits( 0 );
 	 spinNombreInd = sfg::SpinButton::Create( 20.f, 500.f, 10.f );
@@ -21,22 +23,25 @@ Fenetre::Fenetre(Racine *a){
 	 // Set the number of digits to display after the decimal point.
 	 //spinNombreInd->SetDigits( 0 );
 	 combOpSelect = sfg::ComboBox::Create();
-	 combOpSelect->AppendItem( "opA" );
-	 combOpSelect->PrependItem( "opB" );
+	 combOpSelect->AppendItem( "roulette" );
+	 combOpSelect->AppendItem( "select par rang" );
+	 combOpSelect->AppendItem( "tournoi" );
+	 combOpSelect->PrependItem( "elitisme" );
 	 
 	 combOpReplace = sfg::ComboBox::Create();
-	 combOpReplace->AppendItem( "opA" );
-	 combOpReplace->PrependItem( "opB" );
+	 combOpReplace->AppendItem( "Statique" );
+	 combOpReplace->PrependItem( "Elitiste" );
 	 
 	 combModCroismnt = sfg::ComboBox::Create();
-	 combModCroismnt->AppendItem( "opA" );
-	 combModCroismnt->PrependItem( "opB" );
+	 combModCroismnt->AppendItem( "Simple" );
+	 combModCroismnt->PrependItem( "Complexe" );
 	 
 	 combModExec = sfg::ComboBox::Create();
-	 combModExec->AppendItem( "opA" );
-	 combModExec->PrependItem( "opB" );
+	 combModExec->AppendItem( "Temps" );
+	 combModExec->PrependItem( "Nombre Iteration" );
 	 //valeur par defaut
 	 donnees.nbrVille=4;
+	 donnees.nbrIndSelect=4;
 	 donnees.nbrIndividu=10;
 	 donnees.opSelect=0;
 	 donnees.opReplace=0;
@@ -50,7 +55,7 @@ void Fenetre::gestionEvent(){
 	 sfg::Box::Ptr box( sfg::Box::Create( sfg::Box::VERTICAL, 5.0f ) );
 	 sfg::Window::Ptr windowSFG( sfg::Window::Create() );
 	 sfg::Desktop desktop;
-	 sfg::Label::Ptr labelA, labelB, labelC, labelD, labelE, labelF;
+	 sfg::Label::Ptr labelA, labelB, labelC, labelD, labelE, labelF, labelG;
 	 sfg::Button::Ptr buttonReset, buttonLaunch;
 	 
 	 
@@ -60,6 +65,7 @@ void Fenetre::gestionEvent(){
 	 labelD = sfg::Label::Create( "Operateur de remplacement?" );
 	 labelE = sfg::Label::Create( "mode de croisement?" );
 	 labelF = sfg::Label::Create( "mode execution?" );
+	 labelG = sfg::Label::Create( "Nombre individu a selectionner?" );
 	 
 	 buttonReset = sfg::Button::Create( "RESET" );
 	 buttonLaunch = sfg::Button::Create( "LAUNCH" );
@@ -72,6 +78,7 @@ void Fenetre::gestionEvent(){
 	 
 	 spinNombreVille->GetSignal( sfg::SpinButton::OnValueChanged ).Connect( &Fenetre::setNombreVille, this );
 	 spinNombreInd->GetSignal( sfg::SpinButton::OnValueChanged ).Connect( &Fenetre::setNombreInd, this );
+	 spinNbrIndSelect->GetSignal( sfg::SpinButton::OnValueChanged ).Connect( &Fenetre::setNombreIndSelect, this );
 	 combOpSelect->GetSignal( sfg::ComboBox::OnSelect ).Connect( &Fenetre::chooseSelectionOperator, this );
 	 combOpReplace->GetSignal( sfg::ComboBox::OnSelect ).Connect( &Fenetre::chooseReplaceOperator, this );
 	 combModCroismnt->GetSignal( sfg::ComboBox::OnSelect ).Connect( &Fenetre::chooseModeCroisement, this );
@@ -84,6 +91,8 @@ void Fenetre::gestionEvent(){
 	 box->Pack( spinNombreVille );
 	 box->Pack( labelB );
 	 box->Pack( spinNombreInd );
+	 box->Pack( labelG );
+	 box->Pack( spinNbrIndSelect );
 	 box->Pack( labelC );
 	 box->Pack( combOpSelect );
 	 box->Pack( labelD );
@@ -97,6 +106,7 @@ void Fenetre::gestionEvent(){
 	 
 	 
 	 spinNombreVille->SetValue( 4.f );
+	 spinNbrIndSelect->SetValue( 4.f );
 	 windowSFG->SetTitle( "Fenetre" );
 	 windowSFG->Add( box );
 	 
@@ -123,36 +133,42 @@ void Fenetre::gestionEvent(){
 }
 
 void Fenetre::setNombreVille() {
-  
 	 donnees.nbrVille=spinNombreVille->GetValue ();
-	 cout<< donnees.nbrVille<<"   Ville"<<endl;
+	 //cout<< donnees.nbrVille<<"   Ville"<<endl;
 	 spinNombreInd->SetRange( 10.f , nombreMaxIndividus( donnees.nbrVille ) );
 	 //modifier tranche individu
 }
 
+void Fenetre::setNombreIndSelect(){
+	 donnees.nbrIndSelect=spinNombreVille->GetValue ();
+	 //cout<< donnees.nbrVille<<"   Ville"<<endl;
+	 spinNombreInd->SetRange( 4.f , donnees.nbrIndSelect  );
+
+}
+
 void Fenetre::setNombreInd(){
 	 donnees.nbrIndividu=spinNombreInd->GetValue ();
-	 cout<<donnees.nbrIndividu<<"   Individu"<<endl;
+	 //cout<<donnees.nbrIndividu<<"   Individu"<<endl;
 }
 
 void Fenetre::chooseSelectionOperator(){
 	 donnees.opSelect=combOpSelect->GetSelectedItem();
-	 cout<<donnees.opSelect<<"   operateur de selection"<<endl;
+	 //cout<<donnees.opSelect<<"   operateur de selection"<<endl;
 }
 
 void Fenetre::chooseReplaceOperator(){
 	 donnees.opReplace=combOpReplace->GetSelectedItem();
-	 cout<<donnees.opReplace<<"   operateur de remplacement"<<endl;
+	 //cout<<donnees.opReplace<<"   operateur de remplacement"<<endl;
 }
 
 void Fenetre::chooseModeCroisement(){
 	 donnees.modeCroisement=combModCroismnt->GetSelectedItem();
-	 cout<<donnees.modeCroisement<<"   Mode Croisement"<<endl;
+	 //cout<<donnees.modeCroisement<<"   Mode Croisement"<<endl;
 }
 
 void Fenetre::chooseModeExecution(){
 	 donnees.modeExec=combModExec->GetSelectedItem();
-	 cout<<donnees.modeExec<<"   Mode execution"<<endl;
+	 //cout<<donnees.modeExec<<"   Mode execution"<<endl;
 }
 
 void Fenetre::signalReset(){

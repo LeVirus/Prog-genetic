@@ -87,7 +87,6 @@ std::vector<unsigned short> OpSelect::roulette(unsigned short nbrInd, unsigned s
 		}
 
 		for( short i=vectMemo.size()-1;i>0;i--){
-			cout<<"sdf"<<nbrAleat<<" na "<< stockDonneesPop[i-1].stSelectRang<<endl;
 			if(i==0){
 				break;
 			}
@@ -103,13 +102,8 @@ std::vector<unsigned short> OpSelect::roulette(unsigned short nbrInd, unsigned s
 		}
 		//cout<<"final roulette ou select"<<nbrAleat<<"  "<<finall<<endl;
 		//vectMemo[finall].afficherInd();
-		cout<<finall<<endl;
 		/*stockInd[j]*/stockInd[j]=finall;
 
-		cout<<"dfft"<<endl;
-	}
-	for(unsigned short j=0;j<nbrInd;j++){
-		cout<<stockInd[j]<<endl;
 	}
 	return stockInd;
 }
@@ -150,7 +144,6 @@ std::vector<unsigned short> OpSelect::tournoi(unsigned short nbrInd, unsigned sh
 		}
 		itSetA=setSelectAleat.begin();
 		gagnants[i]=(*itSetA);//placer gagnant dans le tableau
-		cout<<gagnants[i]<<"i"<<endl;
 	}
 	return gagnants;
 }
