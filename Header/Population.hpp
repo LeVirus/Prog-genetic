@@ -13,9 +13,11 @@ class Population{
 		std::vector<Individu>::iterator itTabInd;
 		unsigned short nbrIndividu, nbrVille;
 	public:
+		Population();
 		Population(unsigned short nombreVille, unsigned short nombreIndividu);
 		Population(const std::vector<unsigned short> &vect);
 		Population(const std::vector<Individu> &vect);
+		void init(const std::vector<Individu> &vect);
 		bool estPresent(float fitness);
 		void setClassement();
 		unsigned short searchClassement(unsigned short num);
