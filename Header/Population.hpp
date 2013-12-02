@@ -22,7 +22,7 @@ class Population{
 		void setClassement();
 		unsigned short searchClassement(unsigned short num);
 		void replaceInd(unsigned short pos, const Individu &a);
-		void replaceIndElit(const Individu &a);
+		void replaceIndElit(const Individu &a, unsigned short place);
 		const std::vector<Individu> getVectorInd();
 		void afficherPop();
 		~Population();

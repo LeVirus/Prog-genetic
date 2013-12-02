@@ -52,8 +52,9 @@ void Population::replaceInd(unsigned short pos,const Individu &a){
 }
 
 
-void Population::replaceIndElit(const Individu &a){
-	tabIndividu[ searchClassement( classement.size() ) ].modifInd(a);
+void Population::replaceIndElit(const Individu &a, unsigned short place){
+	tabIndividu[ searchClassement( place ) ].modifInd(a);
+	//chercher l'individu le plus faible et le remplacer
 }
 
 bool Population::estPresent(float fitness){
@@ -65,26 +66,34 @@ bool Population::estPresent(float fitness){
 
 unsigned short Population::searchClassement(unsigned short num){
 	setClassement();
+cout<<"oyu"<<endl;
+
 	if(num>classement.size())return 0;
 	for(unsigned short i=0;i<classement.size();++i){
-		if(classement[i]==num)return i;
+		if(classement[i]==num){cout<<i<<endl; return i;}
 	}
+cout<<"ffdf"<<endl;
 	return 0;
 }
 
 void Population::setClassement(){
-	unsigned short mem, current=0, cmpt=1; 
+	classement.resize(tabIndividu.size());
+	unsigned short mem,  cmpt=1; 
+	float current;
 	for(unsigned short i=0;i<classement.size();++i)classement[i]=0;
 	for(unsigned short i=0;i<tabIndividu.size();++i){
+		current=0;
 		for(unsigned short j=0;j<tabIndividu.size();++j){
 			if(classement[j]==0 && current<tabIndividu[j].getFitness()){
 				current=tabIndividu[j].getFitness();
 				mem=j;
 			}
+		}
 			classement[mem]=cmpt;
 			cmpt++;
-		}
 	}
+		cout<<"ffffiiin"<<endl;
+
 }
 
 const std::vector<Individu> Population::getVectorInd(){

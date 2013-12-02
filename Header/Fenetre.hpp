@@ -6,7 +6,7 @@
 #include "Racine.hpp"
 
 struct Donnees{
-	unsigned short nbrVille, nbrIndividu, nbrIndSelect, opReprod ,opSelect, opReplace, modeCroisement, modeExec;
+	unsigned short nbrVille, nbrIndividu, nbrIndSelect, opReprod ,opSelect, opReplace, modeCroisement, modeExec, nbrIteration;
 };//penser a implementer opReprod et nbrOpSelect
 
 class Fenetre{
@@ -14,7 +14,7 @@ class Fenetre{
 		Racine *ptrRacine;
 		sf::RenderWindow windowSF;
 		sfg::SFGUI sfgui;
-		sfg::SpinButton::Ptr spinNombreVille, spinNombreInd, spinNbrIndSelect;
+		sfg::SpinButton::Ptr spinNombreVille, spinNombreInd, spinNbrIndSelect, spinNombreIteration;
 		sfg::ComboBox::Ptr combOpSelect, combOpReplace, combModCroismnt, combModExec;
 		Donnees donnees;
 	public:
@@ -23,6 +23,7 @@ class Fenetre{
 		void setNombreVille();
 		void setNombreInd();
 		void setNombreIndSelect();
+		void setNombreIteration();
 		void chooseSelectionOperator();
 		void chooseReplaceOperator();
 		void chooseModeCroisement();

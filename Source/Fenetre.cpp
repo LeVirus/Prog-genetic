@@ -12,6 +12,7 @@ Fenetre::Fenetre(Racine *a){
 	 // MIN MAX PAS
 	 spinNombreVille = sfg::SpinButton::Create( 5.f, 20.f, 1.f );
 	 spinNbrIndSelect = sfg::SpinButton::Create( 4.f, 200.f, 2.f );
+	 spinNombreIteration = sfg::SpinButton::Create( 1.f, 100.f, 1.f );
 	 // taille du spinbox
 	 spinNombreVille->SetRequisition( sf::Vector2f( 80.f, 0.f ) );
 	 spinNbrIndSelect->SetRequisition( sf::Vector2f( 80.f, 0.f ) );
@@ -37,7 +38,7 @@ Fenetre::Fenetre(Racine *a){
 	 combModCroismnt->PrependItem( "Complexe" );
 	 
 	 combModExec = sfg::ComboBox::Create();
-	 combModExec->AppendItem( "Temps" );
+	 combModExec->AppendItem( "Manuel" );
 	 combModExec->PrependItem( "Nombre Iteration" );
 	 //valeur par defaut
 	 donnees.nbrVille=4;
@@ -55,7 +56,7 @@ void Fenetre::gestionEvent(){
 	 sfg::Box::Ptr box( sfg::Box::Create( sfg::Box::VERTICAL, 5.0f ) );
 	 sfg::Window::Ptr windowSFG( sfg::Window::Create() );
 	 sfg::Desktop desktop;
-	 sfg::Label::Ptr labelA, labelB, labelC, labelD, labelE, labelF, labelG;
+	 sfg::Label::Ptr labelA, labelB, labelC, labelD, labelE, labelF, labelG, labelH;
 	 sfg::Button::Ptr buttonReset, buttonLaunch;
 	 
 	 
@@ -66,6 +67,7 @@ void Fenetre::gestionEvent(){
 	 labelE = sfg::Label::Create( "mode de croisement?" );
 	 labelF = sfg::Label::Create( "mode execution?" );
 	 labelG = sfg::Label::Create( "Nombre individu a selectionner?" );
+	 labelH = sfg::Label::Create( "Nombre Iteration?" );
 	 
 	 buttonReset = sfg::Button::Create( "RESET" );
 	 buttonLaunch = sfg::Button::Create( "LAUNCH" );
@@ -78,6 +80,7 @@ void Fenetre::gestionEvent(){
 	 
 	 spinNombreVille->GetSignal( sfg::SpinButton::OnValueChanged ).Connect( &Fenetre::setNombreVille, this );
 	 spinNombreInd->GetSignal( sfg::SpinButton::OnValueChanged ).Connect( &Fenetre::setNombreInd, this );
+	 spinNombreIteration->GetSignal( sfg::SpinButton::OnValueChanged ).Connect( &Fenetre::setNombreIteration, this );
 	 spinNbrIndSelect->GetSignal( sfg::SpinButton::OnValueChanged ).Connect( &Fenetre::setNombreIndSelect, this );
 	 combOpSelect->GetSignal( sfg::ComboBox::OnSelect ).Connect( &Fenetre::chooseSelectionOperator, this );
 	 combOpReplace->GetSignal( sfg::ComboBox::OnSelect ).Connect( &Fenetre::chooseReplaceOperator, this );
@@ -101,6 +104,8 @@ void Fenetre::gestionEvent(){
 	 box->Pack( combModCroismnt );
 	 box->Pack( labelF );
 	 box->Pack( combModExec );
+	 box->Pack( labelH );
+	 box->Pack( spinNombreIteration );
 	 box->Pack( buttonReset, false );
 	 box->Pack( buttonLaunch, false );
 	 
@@ -154,6 +159,10 @@ void Fenetre::setNombreInd(){
 	 //cout<<donnees.nbrIndividu<<"   Individu"<<endl;
 }
 
+void Fenetre::setNombreIteration(){
+	 donnees.nbrIteration=spinNombreIteration->GetValue ();
+	 //cout<<donnees.nbrIndividu<<"   Individu"<<endl;
+}
 short Fenetre::nombreMaxIndividus(unsigned int nombreVille){
   for(unsigned int i=nombreVille-1;i>3;--i){
 	 nombreVille*=i;

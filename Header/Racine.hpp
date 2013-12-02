@@ -17,6 +17,7 @@ struct Donnees;
 
 class Racine{
   private:
+	bool launched;
 	 OpReplace classeOpReplace;
 	 //sf::Texture texture;
 	 OpReproduction *classeOpReprod;
