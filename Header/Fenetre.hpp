@@ -29,7 +29,7 @@ class Fenetre{
 		void chooseModeExecution();
 		void signalReset();
 		void signalLaunch();
-		short nombreMaxIndividus(short nombreVille);
+		short nombreMaxIndividus(unsigned int nombreVille);
 		~Fenetre();
 };
 

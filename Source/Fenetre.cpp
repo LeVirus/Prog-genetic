@@ -107,6 +107,8 @@ void Fenetre::gestionEvent(){
 	 
 	 spinNombreVille->SetValue( 4.f );
 	 spinNbrIndSelect->SetValue( 4.f );
+	 spinNombreInd->SetRange( 10.f , nombreMaxIndividus( donnees.nbrVille ) );
+	 spinNbrIndSelect->SetRange( 4.f , nombreMaxIndividus( donnees.nbrVille ) );
 	 windowSFG->SetTitle( "Fenetre" );
 	 windowSFG->Add( box );
 	 
@@ -115,6 +117,7 @@ void Fenetre::gestionEvent(){
 	 windowSF.resetGLStates();
 	 
 	while ( windowSF.isOpen() ){
+		windowSF.clear(sf::Color::Black);
 		//sf::Clock temps;
 		//window.pollEvent(event);
 		if (/* event.type == sf::Event::Closed  ||*/  sf::Keyboard::isKeyPressed(sf::Keyboard::Escape) ){
@@ -136,19 +139,27 @@ void Fenetre::setNombreVille() {
 	 donnees.nbrVille=spinNombreVille->GetValue ();
 	 //cout<< donnees.nbrVille<<"   Ville"<<endl;
 	 spinNombreInd->SetRange( 10.f , nombreMaxIndividus( donnees.nbrVille ) );
+	 spinNbrIndSelect->SetRange( 4.f , nombreMaxIndividus( donnees.nbrVille ) );
 	 //modifier tranche individu
 }
 
 void Fenetre::setNombreIndSelect(){
-	 donnees.nbrIndSelect=spinNombreVille->GetValue ();
+	 donnees.nbrIndSelect=spinNbrIndSelect->GetValue ();
 	 //cout<< donnees.nbrVille<<"   Ville"<<endl;
-	 spinNombreInd->SetRange( 4.f , donnees.nbrIndSelect  );
 
 }
 
 void Fenetre::setNombreInd(){
 	 donnees.nbrIndividu=spinNombreInd->GetValue ();
 	 //cout<<donnees.nbrIndividu<<"   Individu"<<endl;
+}
+
+short Fenetre::nombreMaxIndividus(unsigned int nombreVille){
+  for(unsigned int i=nombreVille-1;i>3;--i){
+	 nombreVille*=i;
+		if(nombreVille>14000)return 14000;
+	}
+  return nombreVille;
 }
 
 void Fenetre::chooseSelectionOperator(){
@@ -180,11 +191,6 @@ void Fenetre::signalLaunch(){
 	 ptrRacine->launch(&donnees);
 }
 
-short Fenetre::nombreMaxIndividus(short nombreVille){
-  for(short i=nombreVille-1;i>3;--i)
-	 nombreVille*=i;
-  return nombreVille;
-}
 
 Fenetre::~Fenetre(){
 
